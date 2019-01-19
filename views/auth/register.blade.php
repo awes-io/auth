@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('awesio-auth::layouts.app')
 
 @section('content')
 <div class="container">

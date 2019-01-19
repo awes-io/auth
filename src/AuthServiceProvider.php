@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/auth.php' => config_path('auth.php'),
+            __DIR__.'/../config/awesio-auth.php' => config_path('awesio-auth.php'),
         ], 'config');
 
         $this->loadViewsFrom(__DIR__.'/../views', 'awesio-auth');
@@ -30,8 +30,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AuthContract::class, Auth::class);
-
-        $this->app->singleton('awesio-auth', AuthContract::class);
+        $this->app->singleton(AuthContract::class, Auth::class);
     }
 }

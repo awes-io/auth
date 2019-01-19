@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        return view('awesio-auth::register');
+        return view('awesio-auth::auth.register');
     }
 
     /**
