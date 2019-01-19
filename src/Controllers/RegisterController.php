@@ -2,6 +2,7 @@
 
 namespace AwesIO\Auth\Controllers;
 
+// TODO: move User to auth package ???
 use App\User;
 use AwesIO\Auth\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;

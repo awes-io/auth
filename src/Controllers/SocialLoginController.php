@@ -2,6 +2,8 @@
 
 namespace AwesIO\Auth\Controllers;
 
+// TODO: move User to auth package ???
+use App\User;
 use Socialite;
 use Illuminate\Http\Request;
 use AwesIO\Auth\Controllers\Controller;
@@ -29,9 +31,9 @@ class SocialLoginController extends Controller
      */
     public function callback(Request $request, $service)
     {     
-        $user = $this->buildProvider($service)->user();
+        $serviceUser = $this->buildProvider($service)->user();
 
-        dd($user);
+        $user = $this->getUser($serviceUser, $service);
     }
 
     /**
@@ -69,4 +71,21 @@ class SocialLoginController extends Controller
     {
         return config('awesio-auth.socialite.' . $service);
     } 
+
+    /**
+     * Get existing user
+     *
+     * @param array $serviceUser
+     * @param string $service
+     * @return \App\User
+     */
+    protected function getUser($serviceUser, $service)
+    {
+        return User::where('email', $serviceUser->getEmail())
+            ->orWhereHas('social', 
+                function ($query) use ($serviceUser, $service) {
+                    $query->where('social_id', $serviceUser->getId())->where('service', $service);
+                }
+            )->first();
+    }
 }
