@@ -16,11 +16,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__.'/../views', 'awesio-auth');
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
         $this->publishes([
             __DIR__.'/../config/awesio-auth.php' => config_path('awesio-auth.php'),
         ], 'config');
-
-        $this->loadViewsFrom(__DIR__.'/../views', 'awesio-auth');
     }
 
     /**
