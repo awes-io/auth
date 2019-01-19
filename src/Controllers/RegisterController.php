@@ -29,6 +29,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showRegistrationForm()
     {
         return view('awesio-auth::auth.register');

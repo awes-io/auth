@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Auth implements AuthContract
 {
     /**
-     * Register authentication routes.
+     * Register routes for an application.
+     *
+     * @return void
      */
     public static function routes()
     {
