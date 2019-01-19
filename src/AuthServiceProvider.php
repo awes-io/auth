@@ -30,6 +30,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/awesio-auth.php', 'awesio-auth');
+
         $this->app->singleton(AuthContract::class, Auth::class);
     }
 }

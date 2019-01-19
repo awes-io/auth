@@ -4,16 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Table Name For Auth Storing
+    | Socialite credentials
     |--------------------------------------------------------------------------
     */
-    'table_name' => 'auth_table',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Auth Model
-    |--------------------------------------------------------------------------
-    */
-    'model' => \AwesIO\Auth\Models\Auth::class,
+    'socialite' => [
+        'github' => [
+            'client_id' => env('GITHUB_CLIENT_ID'),
+            'client_secret' => env('GITHUB_CLIENT_SECRET'),
+            'redirect' => env('GITHUB_REDIRECT_URL'),
+        ],
+    ],
 
 ];
