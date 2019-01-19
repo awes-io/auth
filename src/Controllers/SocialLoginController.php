@@ -2,14 +2,27 @@
 
 namespace AwesIO\Auth\Controllers;
 
-// TODO: move User to auth package ???
-use App\User;
-use Socialite;
 use Illuminate\Http\Request;
 use AwesIO\Auth\Controllers\Controller;
+use AwesIO\Auth\Repositories\Contracts\UserRepository;
+use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
 
 class SocialLoginController extends Controller
 {
+    protected $users;
+
+    protected $provider;
+
+    public function __construct(
+        UserRepository $users, 
+        SocialProvidersManager $provider
+    )
+    {
+        $this->users = $users;
+
+        $this->provider = $provider;
+    }
+
     /**
      * Redirect to OAuth provider authentication page
      *
@@ -19,7 +32,9 @@ class SocialLoginController extends Controller
      */
     public function redirect(Request $request, $service)
     {
-        return $this->buildProvider($service)->redirect();
+        return $this->provider
+            ->buildProvider($service)
+            ->redirect();
     }
 
     /**
@@ -31,61 +46,25 @@ class SocialLoginController extends Controller
      */
     public function callback(Request $request, $service)
     {     
-        $serviceUser = $this->buildProvider($service)->user();
+        $serviceUser = $this->provider
+            ->buildProvider($service)
+            ->user();
 
-        $user = $this->getUser($serviceUser, $service);
+        $user = $this->users
+            ->getUser($serviceUser, $service);
+
+        if (! $user) {
+            $user = $this->createUser($serviceUser);
+        }
+        dd($user);
     }
 
-    /**
-     * Build specific socialite provider
-     *
-     * @param string $service
-     * @return void
-     */
-    protected function buildProvider($service)
+    protected function createUser($serviceUser)
     {
-        return Socialite::buildProvider(
-            $this->providerClassName(ucfirst($service)), 
-            $this->getConfig($service)
-        );
-    }
-
-    /**
-     * Generate provider full class name
-     *
-     * @param string $prefix
-     * @return string
-     */
-    protected function providerClassName($prefix)
-    {
-        return "\Laravel\Socialite\Two\\{$prefix}Provider";
-    }
-
-    /**
-     * Get provider credentials from package config
-     *
-     * @param string $service
-     * @return array
-     */
-    protected function getConfig($service)
-    {
-        return config('awesio-auth.socialite.' . $service);
-    } 
-
-    /**
-     * Get existing user
-     *
-     * @param array $serviceUser
-     * @param string $service
-     * @return \App\User
-     */
-    protected function getUser($serviceUser, $service)
-    {
-        return User::where('email', $serviceUser->getEmail())
-            ->orWhereHas('social', 
-                function ($query) use ($serviceUser, $service) {
-                    $query->where('social_id', $serviceUser->getId())->where('service', $service);
-                }
-            )->first();
+        return $this->users->store([
+            // TODO: $serviceUser->getName() might not exist
+            'name' => $serviceUser->getName(),
+            'email' => $serviceUser->getEmail()
+        ]);
     }
 }

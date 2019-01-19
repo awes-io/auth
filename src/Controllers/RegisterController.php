@@ -2,12 +2,11 @@
 
 namespace AwesIO\Auth\Controllers;
 
-// TODO: move User to auth package ???
-use App\User;
-use AwesIO\Auth\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use AwesIO\Auth\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use AwesIO\Auth\Repositories\Contracts\UserRepository;
 
 class RegisterController extends Controller
 {
@@ -20,14 +19,18 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $users;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
         $this->middleware('guest');
+
+        $this->users = $users;
     }
 
     /**
@@ -63,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->users->store([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
