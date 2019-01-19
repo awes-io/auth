@@ -22,5 +22,9 @@ class Auth implements AuthContract
         // Registration Routes...
         $router->get('register', '\AwesIO\Auth\Controllers\RegisterController@showRegistrationForm')->name('register');
         $router->post('register', '\AwesIO\Auth\Controllers\RegisterController@register');
+
+        // Socialite authentication Routes...
+        $router->get('login/{service}', '\AwesIO\Auth\Controllers\SocialLoginController@redirect');
+        $router->get('login/{service}/callback', '\AwesIO\Auth\Controllers\SocialLoginController@callback');
     }
 }
