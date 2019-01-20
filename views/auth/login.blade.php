@@ -67,6 +67,16 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    @foreach (config('awesio-auth.socialite.services') as $item)
+                        <a href="{{ route('login.social', strtolower($item['name'])) }}">
+                            {{ $item['name'] }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </div>

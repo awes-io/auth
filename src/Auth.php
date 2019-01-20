@@ -28,7 +28,7 @@ class Auth implements AuthContract
 
         // Socialite authentication Routes...
         $router->middleware(['guest', SocialAuthentication::class])->group(function () use ($router) {
-            $router->get('login/{service}', '\AwesIO\Auth\Controllers\SocialLoginController@redirect');
+            $router->get('login/{service}', '\AwesIO\Auth\Controllers\SocialLoginController@redirect')->name('login.social');
             $router->get('login/{service}/callback', '\AwesIO\Auth\Controllers\SocialLoginController@callback');
         });
     }
