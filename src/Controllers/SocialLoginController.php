@@ -3,6 +3,7 @@
 namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use AwesIO\Auth\Controllers\Controller;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
@@ -58,13 +59,13 @@ class SocialLoginController extends Controller
         }
         
         if (! $user->hasSocial($service)) {
-            $user->social()->create([
-                'social_id' => $serviceUser->getId(),
-                'service' => $service
-            ]);
+            $this->createUsersSocial($user, $serviceUser, $service);
         }
 
-        //authenticate and redirect
+        Auth::login($user);
+
+        // TODO: uncomment
+        // return redirect()->intended();
     }
 
     protected function createUser($serviceUser)
@@ -74,6 +75,14 @@ class SocialLoginController extends Controller
             'password' => 'password',
             'name' => $serviceUser->getName() ?: $serviceUser->getNickname(),
             'email' => $serviceUser->getEmail()
+        ]);
+    }
+
+    protected function createUsersSocial($user, $serviceUser, $service)
+    {
+        $user->social()->create([
+            'social_id' => $serviceUser->getId(),
+            'service' => $service
         ]);
     }
 }
