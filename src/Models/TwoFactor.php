@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class TwoFactor extends Model
 {
     /**
-     * Indicates if the model should be timestamped.
+     * The table associated with the model.
      *
-     * @var bool
+     * @var string
      */
-    public $timestamps = false;
-    
+    protected $table = 'two_factor';
+
     /**
      * The attributes that are mass assignable.
      *
