@@ -4,11 +4,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Enabled auth types & services: 'social'
+    | Enabled auth types & services: 'social', 'two_factor'
     |--------------------------------------------------------------------------
     */
     'enabled' => [
-        'social'
+        'social', 'two_factor'
     ],
 
     /*

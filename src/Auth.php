@@ -33,11 +33,31 @@ class Auth implements AuthContract
         if ($this->isSocialEnabled()) {
             $this->socialiteRoutes();
         }
+
+        // Two factor authentication Routes...
+        if ($this->isTwoFactorEnabled()) {
+            $this->twoFactorRoutes();
+        }
     }
 
+    /**
+     * Check if socialite authentication eneabled in config
+     *
+     * @return boolean
+     */
     public function isSocialEnabled()
     {
         return in_array('social', config('awesio-auth.enabled'));
+    }
+
+    /**
+     * Check if two factor authentication eneabled in config
+     *
+     * @return boolean
+     */
+    public function isTwoFactorEnabled()
+    {
+        return in_array('two_factor', config('awesio-auth.enabled'));
     }
 
     /**
@@ -97,6 +117,28 @@ class Auth implements AuthContract
                     'login/{service}/callback', 
                     '\AwesIO\Auth\Controllers\SocialLoginController@callback'
                 );
+            });
+    }
+
+    /**
+     * Two factor routes.
+     *
+     * @return void
+     */
+    protected function twoFactorRoutes()
+    {
+        $this->router->middleware([])
+            ->group(function () {
+
+                $this->router->get(
+                    'twofactor', 
+                    '\AwesIO\Auth\Controllers\TwoFactorController@index'
+                )->name('twofactor.index');
+
+                $this->router->post(
+                    'twofactor', 
+                    '\AwesIO\Auth\Controllers\TwoFactorController@store'
+                )->name('twofactor.store');
             });
     }
 }

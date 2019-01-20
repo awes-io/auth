@@ -9,6 +9,11 @@ class TwoFactorController extends Controller
 {
     public function index()
     {
-        return view('awesio-auth::auth.twofactor.index');
+        return view('awesio-auth::twofactor.index');
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 }
