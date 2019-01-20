@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersSocialTable extends Migration
+class CreateTwoFactorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateUsersSocialTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_social', function (Blueprint $table) {
+        Schema::create('two_factor', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->string('social_id');
-            $table->string('service');
+            $table->string('identifier');
+            $table->string('phone');
+            $table->string('dial_code');
+            $table->boolean('verified')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,6 +32,6 @@ class CreateUsersSocialTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users_social');
+        Schema::drop('two_factor');
     }
 }
