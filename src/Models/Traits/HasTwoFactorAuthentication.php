@@ -15,4 +15,27 @@ trait HasTwoFactorAuthentication
     {
         return $this->hasOne(TwoFactor::class);
     }
+
+    /**
+     * Check if two-factor auth is verified
+     *
+     * @return boolean
+     */
+    public function isTwoFactorVerified()
+    {
+        return (bool) optional($this->twoFactor)->isVerified();
+    }
+
+    /**
+     * Check if two-factor verification pending
+     *
+     * @return boolean
+     */
+    public function isTwoFactorPending()
+    {
+        if (! $this->twoFactor) {
+            return false;
+        }
+        return ! $this->twoFactor->isVerified();
+    }
 }
