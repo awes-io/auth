@@ -2,8 +2,9 @@
 
 namespace AwesIO\Auth;
 
-use AwesIO\Auth\Contracts\Auth as AuthContract;
 use Illuminate\Database\Eloquent\Model;
+use AwesIO\Auth\Contracts\Auth as AuthContract;
+use AwesIO\Auth\Middlewares\SocialAuthentication;
 
 class Auth implements AuthContract
 {
@@ -26,7 +27,9 @@ class Auth implements AuthContract
         $router->post('register', '\AwesIO\Auth\Controllers\RegisterController@register');
 
         // Socialite authentication Routes...
-        $router->get('login/{service}', '\AwesIO\Auth\Controllers\SocialLoginController@redirect');
-        $router->get('login/{service}/callback', '\AwesIO\Auth\Controllers\SocialLoginController@callback');
+        $router->middleware(['guest', SocialAuthentication::class])->group(function () use ($router) {
+            $router->get('login/{service}', '\AwesIO\Auth\Controllers\SocialLoginController@redirect');
+            $router->get('login/{service}/callback', '\AwesIO\Auth\Controllers\SocialLoginController@callback');
+        });
     }
 }
