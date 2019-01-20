@@ -4,7 +4,7 @@ namespace AwesIO\Auth\Models\Traits;
 
 use AwesIO\Auth\Models\UserSocial;
 
-trait HasSocial
+trait HasSocialAuthentication
 {
     public function social()
     {
