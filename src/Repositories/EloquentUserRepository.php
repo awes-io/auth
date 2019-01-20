@@ -15,7 +15,7 @@ class EloquentUserRepository implements UserRepository
      * @param string $service
      * @return \App\User
      */
-    public function getUser($serviceUser, $service)
+    public function getUserBySocial($serviceUser, $service)
     {
         return User::where('email', $serviceUser->getEmail())
             ->orWhereHas('social', 

@@ -51,19 +51,28 @@ class SocialLoginController extends Controller
             ->user();
 
         $user = $this->users
-            ->getUser($serviceUser, $service);
+            ->getUserBySocial($serviceUser, $service);
 
         if (! $user) {
             $user = $this->createUser($serviceUser);
         }
-        dd($user);
+        
+        if (! $user->hasSocial($service)) {
+            $user->social()->create([
+                'social_id' => $serviceUser->getId(),
+                'service' => $service
+            ]);
+        }
+
+        //authenticate and redirect
     }
 
     protected function createUser($serviceUser)
     {
         return $this->users->store([
-            // TODO: $serviceUser->getName() might not exist
-            'name' => $serviceUser->getName(),
+            // TODO: What about password? make it nullable() ???
+            'password' => 'password',
+            'name' => $serviceUser->getName() ?: $serviceUser->getNickname(),
             'email' => $serviceUser->getEmail()
         ]);
     }
