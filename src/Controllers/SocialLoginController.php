@@ -64,23 +64,37 @@ class SocialLoginController extends Controller
 
         Auth::login($user);
 
-        // TODO: uncomment
+        // TODO: uncomment & redirect as needed
         // return redirect()->intended();
     }
 
+    /**
+     * Create new user using service credentials
+     *
+     * @param \Laravel\Socialite\Two\User $serviceUser
+     * @return \App\User
+     */
     protected function createUser($serviceUser)
     {
         return $this->users->store([
-            // TODO: What about password? make it nullable() ???
+            // TODO: What about password? make it nullable() OR move migrations to package???
             'password' => 'password',
             'name' => $serviceUser->getName() ?: $serviceUser->getNickname(),
             'email' => $serviceUser->getEmail()
         ]);
     }
 
+    /**
+     * Create new user's social record using service credentials
+     *
+     * @param \App\User $user
+     * @param \Laravel\Socialite\Two\User $serviceUser
+     * @param string $service
+     * @return \AwesIO\Auth\Models\UserSocial
+     */
     protected function createUsersSocial($user, $serviceUser, $service)
     {
-        $user->social()->create([
+        return $user->social()->create([
             'social_id' => $serviceUser->getId(),
             'service' => $service
         ]);

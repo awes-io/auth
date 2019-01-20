@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Models;
 
-// TODO: move User to auth package ???
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +24,7 @@ class UserSocial extends Model
     ];
 
     /**
-     * Define an inverse User relationship.
+     * Define an inverse \App\User relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

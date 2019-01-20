@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Repositories;
 
-// TODO: move User to auth package ???
 use App\User;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 
@@ -25,6 +24,12 @@ class EloquentUserRepository implements UserRepository
             )->first();
     }
 
+    /**
+     * Create new user
+     *
+     * @param array $data
+     * @return \App\User
+     */
     public function store(array $data)
     {
         return User::create($data);
