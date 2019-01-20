@@ -30,7 +30,14 @@ class Auth implements AuthContract
         $this->registrationRoutes();
 
         // Socialite authentication Routes...
-        $this->socialiteRoutes();
+        if ($this->isSocialEnabled()) {
+            $this->socialiteRoutes();
+        }
+    }
+
+    public function isSocialEnabled()
+    {
+        return in_array('social', config('awesio-auth.enabled'));
     }
 
     /**
@@ -38,7 +45,7 @@ class Auth implements AuthContract
      *
      * @return void
      */
-    public function loginRoutes()
+    protected function loginRoutes()
     {
         $this->router->get(
             'login', 
@@ -58,7 +65,7 @@ class Auth implements AuthContract
      *
      * @return void
      */
-    public function registrationRoutes()
+    protected function registrationRoutes()
     {
         $this->router->get(
             'register', 
