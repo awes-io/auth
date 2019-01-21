@@ -7,9 +7,8 @@ use AwesIO\Auth\Controllers\Controller;
 
 class TwoFactorLoginController extends Controller
 {
-    public function verify()
+    public function index()
     {
-        dd(1);
         return view('awesio-auth::twofactor.verify');
     }
 }

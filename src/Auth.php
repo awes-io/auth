@@ -158,8 +158,8 @@ class Auth implements AuthContract
 
                 $this->router->get(
                     'login/twofactor/verify', 
-                    '\AwesIO\Auth\Controllers\TwoFactorLoginController@verify'
-                )->name('login.twofactor.verify');
+                    '\AwesIO\Auth\Controllers\TwoFactorLoginController@index'
+                )->name('login.twofactor.index');
             });
     }
 }
