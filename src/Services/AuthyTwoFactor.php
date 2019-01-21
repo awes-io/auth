@@ -33,7 +33,17 @@ class AuthyTwoFactor implements TwoFactor
 
     public function verifyToken(User $user, $token)
     {
-        //
+        try {
+            $response = $this->client->request(
+                'GET',
+                'https://api.authy.com/protected/json/verify/'
+                    . $token . '/' . $user->twoFactor->identifier
+                    . '?force=true&api_key=' . config('awesio-auth.two_factor.authy.secret')
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
+        return json_decode($response->getBody());
     }
 
     public function remove(User $user)
