@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use AwesIO\Auth\Models\Country;
 use AwesIO\Auth\Controllers\Controller;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
+use AwesIO\Auth\Requests\TwoFactorStoreRequest;
 
 class TwoFactorController extends Controller
 {
@@ -16,7 +17,7 @@ class TwoFactorController extends Controller
         return view('awesio-auth::twofactor.index', compact('countries'));
     }
 
-    public function store(Request $request, TwoFactor $twoFactor)
+    public function store(TwoFactorStoreRequest $request, TwoFactor $twoFactor)
     {
         $user = $request->user();
 
