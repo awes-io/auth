@@ -23,7 +23,8 @@
 	"keywords": ["Laravel", "Auth"],
     "require": {
         "illuminate/support": "~5",
-        "laravel/socialite": "^4.0"
+        "laravel/socialite": "^4.0",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
 		"phpunit/phpunit": "~7.0",

@@ -3,14 +3,15 @@
 namespace AwesIO\Auth;
 
 use AwesIO\Auth\Auth;
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
+use AwesIO\Auth\Services\AuthyTwoFactor;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 use AwesIO\Auth\Contracts\Auth as AuthContract;
 use AwesIO\Auth\Services\SocialiteProvidersManager;
 use AwesIO\Auth\Repositories\EloquentUserRepository;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
-use AwesIO\Auth\Services\AuthyTwoFactor;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -57,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->bind(SocialProvidersManager::class, SocialiteProvidersManager::class);
 
         $this->app->singleton(TwoFactor::class, function () {
-            return new AuthyTwoFactor();
+            return new AuthyTwoFactor(new Client());
         });
     }
 }
