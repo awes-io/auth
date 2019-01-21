@@ -17,11 +17,11 @@ trait HasTwoFactorAuthentication
     }
 
     /**
-     * Check if two-factor auth is verified
+     * Check if two-factor auth is enabled
      *
      * @return boolean
      */
-    public function isTwoFactorVerified()
+    public function isTwoFactorEnabled()
     {
         return (bool) optional($this->twoFactor)->isVerified();
     }
