@@ -144,6 +144,11 @@ class Auth implements AuthContract
                     'twofactor/verify', 
                     '\AwesIO\Auth\Controllers\TwoFactorController@verify'
                 )->name('twofactor.verify');
+
+                $this->router->delete(
+                    'twofactor', 
+                    '\AwesIO\Auth\Controllers\TwoFactorController@destroy'
+                )->name('twofactor.destroy');
             });
     }
 }
