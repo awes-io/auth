@@ -139,6 +139,11 @@ class Auth implements AuthContract
                     'twofactor', 
                     '\AwesIO\Auth\Controllers\TwoFactorController@store'
                 )->name('twofactor.store');
+
+                $this->router->post(
+                    'twofactor/verify', 
+                    '\AwesIO\Auth\Controllers\TwoFactorController@verify'
+                )->name('twofactor.verify');
             });
     }
 }

@@ -33,4 +33,9 @@ class TwoFactorController extends Controller
         }
         return back();
     }
+
+    public function verify()
+    {
+        dd('OK');
+    }
 }
