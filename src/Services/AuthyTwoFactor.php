@@ -17,7 +17,18 @@ class AuthyTwoFactor implements TwoFactor
 
     public function register(User $user)
     {
-        dd($user);
+        try {
+            $response = $this->client->request(
+                'POST',
+                'https://api.authy.com/protected/json/users/new?api_key=' 
+                    . config('awesio-auth.two_factor.authy.secret'), [
+                    'form_params' => $this->getUserRegistrationPayload($user)
+                ]
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
+        return json_decode($response->getBody());
     }
 
     public function verifyToken(User $user, $token)
@@ -28,5 +39,16 @@ class AuthyTwoFactor implements TwoFactor
     public function remove(User $user)
     {
         //
+    }
+
+    protected function getUserRegistrationPayload(User $user)
+    {
+        return [
+            'user' => [
+                'email' => $user->email,
+                'cellphone' => $user->twoFactor->phone,
+                'country_code' => $user->twoFactor->dial_code
+            ]
+        ];
     }
 }

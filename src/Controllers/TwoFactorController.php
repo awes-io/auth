@@ -18,6 +18,18 @@ class TwoFactorController extends Controller
 
     public function store(Request $request, TwoFactor $twoFactor)
     {
-        $twoFactor->register($request->user());
+        $user = $request->user();
+
+        $user->twoFactor()->create([
+            'phone' => $request->phone,
+            'dial_code' => $request->dial_code,
+        ]);
+
+        if ($response = $twoFactor->register($user)) {
+            $user->twoFactor()->update([
+                'identifier' => $response->user->id
+            ]);
+        }
+        return back();
     }
 }
