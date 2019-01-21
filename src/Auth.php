@@ -127,7 +127,7 @@ class Auth implements AuthContract
      */
     protected function twoFactorRoutes()
     {
-        $this->router->middleware([])
+        $this->router->middleware(['auth'])
             ->group(function () {
 
                 $this->router->get(

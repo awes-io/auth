@@ -51,7 +51,17 @@ class AuthyTwoFactor implements TwoFactor
 
     public function remove(User $user)
     {
-        //
+        try {
+            $response = $this->client->request(
+                'POST',
+                'https://api.authy.com/protected/json/users/delete/'
+                    . $user->twoFactor->identifier
+                    . '?api_key=' . config('awesio-auth.two_factor.authy.secret')
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
+        return true;
     }
 
     protected function getUserRegistrationPayload(User $user)
