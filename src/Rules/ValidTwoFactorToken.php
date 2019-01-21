@@ -33,7 +33,7 @@ class ValidTwoFactorToken implements Rule
      */
     public function passes($attribute, $value)
     {
-        return false;
+        return $this->twoFactor->verifyToken($this->user, $value);
     }
 
     /**

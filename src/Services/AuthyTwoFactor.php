@@ -43,7 +43,10 @@ class AuthyTwoFactor implements TwoFactor
         } catch (\Exception $e) {
             return false;
         }
-        return json_decode($response->getBody());
+        
+        $response = json_decode($response->getBody());
+
+        return $response->token === 'is valid';
     }
 
     public function remove(User $user)
