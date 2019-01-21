@@ -11,4 +11,9 @@ class TwoFactorLoginController extends Controller
     {
         return view('awesio-auth::twofactor.verify');
     }
+
+    public function verify(Request $request)
+    {
+        dd($request->all());
+    }
 }
