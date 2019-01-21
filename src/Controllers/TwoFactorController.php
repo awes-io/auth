@@ -7,6 +7,7 @@ use AwesIO\Auth\Models\Country;
 use AwesIO\Auth\Controllers\Controller;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 use AwesIO\Auth\Requests\TwoFactorStoreRequest;
+use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
 
 class TwoFactorController extends Controller
 {
@@ -34,7 +35,7 @@ class TwoFactorController extends Controller
         return back();
     }
 
-    public function verify()
+    public function verify(TwoFactorVerifyRequest $request)
     {
         dd('OK');
     }
