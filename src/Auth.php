@@ -127,6 +127,7 @@ class Auth implements AuthContract
      */
     protected function twoFactorRoutes()
     {
+        // Setting up and verifying 2FA routes
         $this->router->middleware(['auth'])
             ->group(function () {
 
@@ -149,6 +150,16 @@ class Auth implements AuthContract
                     'twofactor', 
                     '\AwesIO\Auth\Controllers\TwoFactorController@destroy'
                 )->name('twofactor.destroy');
+            });
+
+        // 2FA login routes
+        $this->router->middleware(['guest'])
+            ->group(function () {
+
+                $this->router->get(
+                    'login/twofactor/verify', 
+                    '\AwesIO\Auth\Controllers\TwoFactorLoginController@verify'
+                )->name('login.twofactor.verify');
             });
     }
 }

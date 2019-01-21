@@ -18,7 +18,7 @@ trait AuthenticatesUsersWith2FA
 
             Auth::logout();
 
-            // redirect
+            return redirect()->route('login.twofactor.verify');
         }
     }
 }

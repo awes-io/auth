@@ -49,7 +49,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (Auth::isTwoFactorEnabled()) {
-            $this->handleTwoFactorAuthentication($request, $user);
+            return $this->handleTwoFactorAuthentication($request, $user);
         }
     }
 }
