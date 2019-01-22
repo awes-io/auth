@@ -77,8 +77,7 @@ class SocialLoginController extends Controller
     protected function createUser($serviceUser)
     {
         return $this->users->store([
-            // TODO: What about password? make it nullable() OR move migrations to package???
-            'password' => 'password',
+            'password' => bcrypt(str_random(40)),
             'name' => $serviceUser->getName() ?: $serviceUser->getNickname(),
             'email' => $serviceUser->getEmail()
         ]);
