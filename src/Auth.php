@@ -77,7 +77,10 @@ class Auth implements AuthContract
             '\AwesIO\Auth\Controllers\LoginController@login'
         );
 
-        // $router->post('logout', 'Auth\LoginController@logout')->name('logout');
+        $this->router->post(
+            'logout', 
+            '\AwesIO\Auth\Controllers\LoginController@logout'
+        )->name('logout');
     }
 
     /**
