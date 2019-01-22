@@ -2,7 +2,7 @@
 
 namespace AwesIO\Auth\Services;
 
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
 use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
 
 class SocialiteProvidersManager implements SocialProvidersManager
