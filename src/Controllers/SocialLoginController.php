@@ -14,6 +14,8 @@ class SocialLoginController extends Controller
 
     protected $provider;
 
+    protected $redirectTo = '/';
+
     public function __construct(
         UserRepository $users, 
         SocialProvidersManager $provider
@@ -64,8 +66,7 @@ class SocialLoginController extends Controller
 
         Auth::login($user);
 
-        // TODO: uncomment & redirect as needed
-        // return redirect()->intended();
+        return redirect()->intended($this->redirectTo);
     }
 
     /**
