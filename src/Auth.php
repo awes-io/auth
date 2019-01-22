@@ -29,6 +29,9 @@ class Auth implements AuthContract
         // Registration Routes...
         $this->registrationRoutes();
 
+        // Reset password Routes...
+        $this->resetPasswordRoutes();
+
         // Socialite authentication Routes...
         if ($this->isSocialEnabled()) {
             $this->socialiteRoutes();
@@ -99,6 +102,34 @@ class Auth implements AuthContract
             'register', 
             '\AwesIO\Auth\Controllers\RegisterController@register'
         );
+    }
+
+    /**
+     * Reset password routes.
+     *
+     * @return void
+     */
+    protected function resetPasswordRoutes()
+    {
+        $this->router->get(
+            'password/reset', 
+            '\AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm'
+        )->name('password.request');
+
+        $this->router->post(
+            'password/email', 
+            '\AwesIO\Auth\Controllers\ForgotPasswordController@sendResetLinkEmail'
+        )->name('password.email');
+
+        $this->router->get(
+            'password/reset/{token}', 
+            '\AwesIO\Auth\Controllers\ResetPasswordController@showResetForm'
+        )->name('password.reset');
+
+        $this->router->post(
+            'password/reset', 
+            '\AwesIO\Auth\Controllers\ResetPasswordController@reset'
+        )->name('password.update');
     }
 
     /**
