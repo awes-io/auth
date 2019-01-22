@@ -7,6 +7,8 @@ use AwesIO\Auth\Tests\TestCase;
 
 class AuthRoutesTest extends TestCase
 {
+    protected $prefix = 'AwesIO\Auth\Controllers\\';
+
     /**
      * Setup the test environment.
      */
@@ -38,7 +40,7 @@ class AuthRoutesTest extends TestCase
     public function it_has_get_login_route()
     {
         app('router')->getRoutes()
-            ->getByAction('AwesIO\Auth\Controllers\LoginController@showLoginForm')
+            ->getByAction($this->prefix . 'LoginController@showLoginForm')
             ->middleware('web');
 
         $response = $this->get('login');
@@ -55,10 +57,22 @@ class AuthRoutesTest extends TestCase
     }
 
     /** @test */
+    public function it_has_logout_route()
+    {
+        app('router')->getRoutes()
+            ->getByAction($this->prefix . 'LoginController@logout')
+            ->middleware('web');
+
+        $response = $this->post('logout');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
     public function it_has_get_registration_route()
     {
         app('router')->getRoutes()
-            ->getByAction('AwesIO\Auth\Controllers\RegisterController@showRegistrationForm')
+            ->getByAction($this->prefix . 'RegisterController@showRegistrationForm')
             ->middleware('web');
 
         $response = $this->get('register');
