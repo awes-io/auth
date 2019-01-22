@@ -67,15 +67,18 @@ class Auth implements AuthContract
      */
     protected function loginRoutes()
     {
-        $this->router->get(
-            'login', 
-            '\AwesIO\Auth\Controllers\LoginController@showLoginForm'
-        )->name('login');
+        $this->router->middleware(['web'])
+            ->group(function () {
+                $this->router->get(
+                    'login', 
+                    '\AwesIO\Auth\Controllers\LoginController@showLoginForm'
+                )->name('login');
 
-        $this->router->post(
-            'login', 
-            '\AwesIO\Auth\Controllers\LoginController@login'
-        );
+                $this->router->post(
+                    'login', 
+                    '\AwesIO\Auth\Controllers\LoginController@login'
+                );
+            });
 
         // $router->post('logout', 'Auth\LoginController@logout')->name('logout');
     }
@@ -87,15 +90,18 @@ class Auth implements AuthContract
      */
     protected function registrationRoutes()
     {
-        $this->router->get(
-            'register', 
-            '\AwesIO\Auth\Controllers\RegisterController@showRegistrationForm'
-        )->name('register');
+        $this->router->middleware(['web'])
+            ->group(function () {
+                $this->router->get(
+                    'register', 
+                    '\AwesIO\Auth\Controllers\RegisterController@showRegistrationForm'
+                )->name('register');
 
-        $this->router->post(
-            'register', 
-            '\AwesIO\Auth\Controllers\RegisterController@register'
-        );
+                $this->router->post(
+                    'register', 
+                    '\AwesIO\Auth\Controllers\RegisterController@register'
+                );
+            });
     }
 
     /**

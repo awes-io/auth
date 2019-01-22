@@ -27,7 +27,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageAliases($app)
     {
         return [
-            // 'AwesAuth' => Auth::class,
+            'AwesAuth' => Auth::class,
         ];
     }
 }
