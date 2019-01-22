@@ -31,14 +31,7 @@ class AuthServiceProvider extends ServiceProvider
             __DIR__.'/../config/awesio-auth.php' => config_path('awesio-auth.php'),
         ], 'config');
 
-        $this->publishes([
-            __DIR__.'/../database/migrations/create_countries_table.php.stub' 
-                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_countries_table.php'),
-            __DIR__.'/../database/migrations/create_two_factor_table.php.stub' 
-                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_two_factor_table.php'),
-            __DIR__.'/../database/migrations/create_users_social_table.php.stub' 
-                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_users_social_table.php'),
-        ], 'migrations');
+        $this->bootMigrationsPublishing();
     }
 
     /**
@@ -69,5 +62,17 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->singleton(TwoFactor::class, function () {
             return new AuthyTwoFactor(new Client());
         });
+    }
+
+    protected function bootMigrationsPublishing()
+    {
+        $this->publishes([
+            __DIR__.'/../database/migrations/create_countries_table.php.stub' 
+                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_countries_table.php'),
+            __DIR__.'/../database/migrations/create_two_factor_table.php.stub' 
+                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_two_factor_table.php'),
+            __DIR__.'/../database/migrations/create_users_social_table.php.stub' 
+                => database_path('migrations/'.date('Y_m_d_His', time()).'_create_users_social_table.php'),
+        ], 'migrations');
     }
 }
