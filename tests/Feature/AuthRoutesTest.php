@@ -14,9 +14,9 @@ class AuthRoutesTest extends TestCase
     {
         parent::setUp();
 
-        $this->loadLaravelMigrations(['--database' => 'testing']);
+        // $this->loadLaravelMigrations(['--database' => 'testing']);
 
-        $this->artisan('migrate', ['--database' => 'testing'])->run();
+        // $this->artisan('migrate', ['--database' => 'testing'])->run();
 
         Auth::routes();
     }
