@@ -8,8 +8,18 @@ use AwesIO\Auth\Services\Contracts\TwoFactor;
 
 class ValidTwoFactorToken implements Rule
 {
+    /**
+     * User model
+     *
+     * @var \App\User
+     */
     protected $user;
 
+    /**
+     * Two factor service
+     *
+     * @var \AwesIO\Auth\Services\Contracts\TwoFactor
+     */
     protected $twoFactor;
 
     /**

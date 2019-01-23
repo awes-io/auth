@@ -8,7 +8,7 @@ use AwesIO\Auth\Repositories\Contracts\UserRepository;
 class EloquentUserRepository implements UserRepository
 {
     /**
-     * Get existing user
+     * Get existing user by social service data
      *
      * @param array $serviceUser
      * @param string $service

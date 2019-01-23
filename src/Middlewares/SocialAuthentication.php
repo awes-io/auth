@@ -21,6 +21,12 @@ class SocialAuthentication
         return $next($request);
     }
 
+    /**
+     * Check if socialite service is enabled in config
+     *
+     * @param string $service
+     * @return boolean
+     */
     protected function isServiceAvailable($service)
     {
         return in_array(

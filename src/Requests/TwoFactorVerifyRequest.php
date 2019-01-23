@@ -9,6 +9,11 @@ use AwesIO\Auth\Services\Contracts\TwoFactor;
 
 class TwoFactorVerifyRequest extends FormRequest
 {
+    /**
+     * Two factor service
+     *
+     * @var \AwesIO\Auth\Services\Contracts\TwoFactor
+     */
     protected $twoFactor;
 
     public function __construct(TwoFactor $twoFactor)
@@ -45,6 +50,12 @@ class TwoFactorVerifyRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get custom user resolver
+     *
+     * @param object $data
+     * @return \Closure
+     */
     protected function userResolver($data)
     {
         return function () use ($data) {

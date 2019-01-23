@@ -54,11 +54,21 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerServices();
     }
 
+    /**
+     * Register and bind package repositories
+     *
+     * @return void
+     */
     protected function registerRepositories()
     {
         $this->app->bind(UserRepository::class, EloquentUserRepository::class);
     }
 
+    /**
+     * Register and bind package services
+     *
+     * @return void
+     */
     protected function registerServices()
     {
         $this->app->bind(SocialProvidersManager::class, SocialiteProvidersManager::class);
@@ -68,6 +78,11 @@ class AuthServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Prepare migrations for publication
+     *
+     * @return void
+     */
     protected function bootMigrationsPublishing()
     {
         $this->publishes([
