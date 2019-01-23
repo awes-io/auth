@@ -2,7 +2,7 @@
 
 namespace AwesIO\Auth\Controllers;
 
-use AwesIO\Auth\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller

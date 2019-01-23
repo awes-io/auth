@@ -3,8 +3,8 @@
 namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use AwesIO\Auth\Controllers\Controller;
 use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
 
 class TwoFactorLoginController extends Controller

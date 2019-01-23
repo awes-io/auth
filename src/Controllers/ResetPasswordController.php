@@ -3,7 +3,7 @@
 namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
-use AwesIO\Auth\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

@@ -2,8 +2,8 @@
 
 namespace AwesIO\Auth\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use AwesIO\Auth\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
