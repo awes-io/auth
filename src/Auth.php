@@ -17,7 +17,7 @@ class Auth implements AuthContract
     }
 
     /**
-     * Register routes for an application.
+     * Register routes.
      *
      * @return void
      */

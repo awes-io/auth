@@ -11,6 +11,11 @@ use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
 
 class TwoFactorController extends Controller
 {
+    /**
+     * Show the application's two factor setup form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $countries = Country::all();
@@ -18,6 +23,13 @@ class TwoFactorController extends Controller
         return view('awesio-auth::twofactor.index', compact('countries'));
     }
 
+    /**
+     * Store new user's two factor record
+     *
+     * @param \AwesIO\Auth\Requests\TwoFactorStoreRequest $request
+     * @param \AwesIO\Auth\Services\Contracts\TwoFactor $twoFactor
+     * @return void
+     */
     public function store(TwoFactorStoreRequest $request, TwoFactor $twoFactor)
     {
         $user = $request->user();
@@ -35,6 +47,12 @@ class TwoFactorController extends Controller
         return back();
     }
 
+    /**
+     * Verify two factor token
+     *
+     * @param \AwesIO\Auth\Requests\TwoFactorVerifyRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function verify(TwoFactorVerifyRequest $request)
     {
         $request->user()->twoFactor()->update([
@@ -44,6 +62,13 @@ class TwoFactorController extends Controller
         return back();
     }
 
+    /**
+     * Remove user from two factor service and application's db
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \AwesIO\Auth\Services\Contracts\TwoFactor $twoFactor
+     * @return void
+     */
     public function destroy(Request $request, TwoFactor $twoFactor)
     {
         if ($twoFactor->remove($user = $request->user())) {

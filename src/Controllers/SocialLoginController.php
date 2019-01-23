@@ -14,12 +14,32 @@ class SocialLoginController extends Controller
 {
     use RedirectsUsers, RedirectsTo;
 
+    /**
+     * User repository
+     *
+     * @var \AwesIO\Auth\Repositories\Contracts\UserRepository
+     */
     protected $users;
 
+    /**
+     * Socialite's providers manager
+     *
+     * @var \AwesIO\Auth\Services\Contracts\SocialProvidersManager
+     */
     protected $provider;
 
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
     protected $redirectTo = '/';
 
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(
         UserRepository $users, 
         SocialProvidersManager $provider

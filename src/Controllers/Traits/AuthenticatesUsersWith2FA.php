@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 trait AuthenticatesUsersWith2FA
 {
+    /**
+     * Handle 2FA, stores user data in session, logs out and redirects
+     *
+     * @param Request $request
+     * @param $user
+     * @return \Illuminate\Http\Response
+     */
     protected function handleTwoFactorAuthentication(Request $request, $user)
     {
         if ($user->isTwoFactorEnabled()) {
