@@ -4,6 +4,7 @@ namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -19,7 +20,7 @@ class ResetPasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
+    use ResetsPasswords, RedirectsTo;
 
     /**
      * Where to redirect users after resetting their password.

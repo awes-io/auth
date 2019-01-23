@@ -5,10 +5,14 @@ namespace AwesIO\Auth\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
 
 class TwoFactorLoginController extends Controller
 {
+    use RedirectsUsers, RedirectsTo;
+    
     protected $redirectTo = '/';
     
     public function index()
@@ -22,6 +26,6 @@ class TwoFactorLoginController extends Controller
 
         session()->forget('two_factor');
 
-        return redirect()->intended($this->redirectTo);
+        return redirect()->intended($this->redirectPath());
     }
 }

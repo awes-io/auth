@@ -5,11 +5,15 @@ namespace AwesIO\Auth\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
 
 class SocialLoginController extends Controller
 {
+    use RedirectsUsers, RedirectsTo;
+
     protected $users;
 
     protected $provider;
@@ -66,7 +70,7 @@ class SocialLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended($this->redirectTo);
+        return redirect()->intended($this->redirectPath());
     }
 
     /**

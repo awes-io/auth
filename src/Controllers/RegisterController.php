@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
+    use RegistersUsers, RedirectsTo;
 
     /**
      * Where to redirect users after registration.

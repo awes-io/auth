@@ -60,7 +60,11 @@ return [
     |--------------------------------------------------------------------------
     */
     'redirects' => [
-        'login' => '/twofactor'
+        'login' => '/twofactor',
+        'register' => '/twofactor',
+        'reset_password' => '/',
+        'social_login' => '/twofactor',
+        'twofactor_login' => '/twofactor',
     ],
 
 ];
