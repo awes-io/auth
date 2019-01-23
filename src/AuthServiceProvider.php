@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->bootMigrationsPublishing();
+
+        $this->publishes([
+            __DIR__.'/../views' => resource_path('views/vendor/awesio-auth'),
+        ], 'views');
     }
 
     /**
