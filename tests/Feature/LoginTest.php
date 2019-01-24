@@ -2,22 +2,11 @@
 
 namespace AwesIO\Auth\Tests\Feature;
 
-use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Tests\TestCase;
 use AwesIO\Auth\Tests\Stubs\User;
 
 class LoginTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->withFactories(__DIR__ . '/../../database/factories');
-    }
-
     /** @test */
     public function it_returns_login_view()
     {

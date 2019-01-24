@@ -2,10 +2,7 @@
 
 namespace AwesIO\Auth\Tests\Feature;
 
-use Mockery;
-use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Tests\TestCase;
-use AwesIO\Auth\Tests\Stubs\User;
 
 class RegisterTest extends TestCase
 {

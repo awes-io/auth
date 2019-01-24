@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Tests\Feature;
 
-use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Tests\TestCase;
 
 class AuthRoutesTest extends TestCase
