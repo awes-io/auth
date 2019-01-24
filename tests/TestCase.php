@@ -3,11 +3,41 @@
 namespace AwesIO\Auth\Tests;
 
 use AwesIO\Auth\Facades\Auth;
+use AwesIO\Auth\Tests\Stubs\User;
 use AwesIO\Auth\AuthServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    /**
+     * Setup the test environment.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        
+        Auth::routes();
+
+        $this->loadLaravelMigrations(['--database' => 'testing']);
+
+        $this->assignRouteActionMiddlewares();
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('app.debug', env('APP_DEBUG', true));
+
+        $app['config']->set('auth.providers.users.model', User::class);
+
+        $this->setUpDatabase($app);
+    }
+
     /**
      * Load package service provider
      * @param  \Illuminate\Foundation\Application $app
@@ -32,8 +62,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         ];
     }
 
-    protected function assignRouteActionMiddlewares(array $actions, array $middlwares)
+    protected function assignRouteActionMiddlewares()
     {
+        $actions = [
+            'AwesIO\Auth\Controllers\LoginController@showLoginForm',
+            'AwesIO\Auth\Controllers\LoginController@login',
+            'AwesIO\Auth\Controllers\LoginController@logout',
+            'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm',
+        ];
+
+        $middlwares = ['web'];
+
         foreach ($actions as $action) {
             app('router')->getRoutes()->getByAction($action)
                 ->middleware($middlwares);

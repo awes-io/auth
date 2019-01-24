@@ -7,35 +7,6 @@ use AwesIO\Auth\Tests\TestCase;
 
 class AuthRoutesTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        Auth::routes();
-
-        $this->assignRouteActionMiddlewares([
-            'AwesIO\Auth\Controllers\LoginController@showLoginForm',
-            'AwesIO\Auth\Controllers\LoginController@logout',
-            'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm'
-        ], ['web']);
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('app.debug', env('APP_DEBUG', true));
-
-        // $app->register( \Laravel\Socialite\SocialiteServiceProvider::class);
-    }
-
     /** @test */
     public function it_has_get_login_route()
     {

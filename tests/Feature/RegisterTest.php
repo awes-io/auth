@@ -9,35 +9,6 @@ use AwesIO\Auth\Tests\Stubs\User;
 
 class RegisterTest extends TestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        Auth::routes();
-
-        $this->loadLaravelMigrations(['--database' => 'testing']);
-
-        $this->withFactories(__DIR__ . '/../../database/factories');
-
-        $this->assignRouteActionMiddlewares([
-            'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm'
-        ], ['web']);
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('app.debug', env('APP_DEBUG', true));
-    }
-
     /** @test */
     public function it_returns_login_view()
     {

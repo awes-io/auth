@@ -15,31 +15,7 @@ class LoginTest extends TestCase
     {
         parent::setUp();
 
-        Auth::routes();
-
-        $this->loadLaravelMigrations(['--database' => 'testing']);
-
         $this->withFactories(__DIR__ . '/../../database/factories');
-
-        $this->assignRouteActionMiddlewares([
-            'AwesIO\Auth\Controllers\LoginController@showLoginForm',
-            'AwesIO\Auth\Controllers\LoginController@login',
-        ], ['web']);
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('app.debug', env('APP_DEBUG', true));
-
-        $app['config']->set('auth.providers.users.model', User::class);
-
-        $this->setUpDatabase($app);
     }
 
     /** @test */
