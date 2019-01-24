@@ -3,7 +3,6 @@
 namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 

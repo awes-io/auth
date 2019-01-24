@@ -4,7 +4,6 @@ namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
 use AwesIO\Auth\Facades\Auth;
-use App\Http\Controllers\Controller;
 use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use AwesIO\Auth\Controllers\Traits\AuthenticatesUsersWith2FA;

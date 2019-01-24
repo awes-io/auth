@@ -30,4 +30,12 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesAuth' => Auth::class,
         ];
     }
+
+    protected function assignRouteActionMiddlewares(array $actions, array $middlwares)
+    {
+        foreach ($actions as $action) {
+            app('router')->getRoutes()->getByAction($action)
+                ->middleware($middlwares);
+        }
+    }
 }

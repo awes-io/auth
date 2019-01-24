@@ -4,7 +4,6 @@ namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
 use AwesIO\Auth\Models\Country;
-use App\Http\Controllers\Controller;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 use AwesIO\Auth\Requests\TwoFactorStoreRequest;
 use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
