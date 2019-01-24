@@ -38,6 +38,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('auth.providers.users.model', User::class);
 
         $this->setUpDatabase($app);
+
+        $app->register( \Laravel\Socialite\SocialiteServiceProvider::class);
     }
 
     /**
@@ -72,6 +74,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesIO\Auth\Controllers\LoginController@logout',
             'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm',
             'AwesIO\Auth\Controllers\TwoFactorLoginController@index',
+            'AwesIO\Auth\Controllers\SocialLoginController@redirect',
+            'AwesIO\Auth\Controllers\TwoFactorController@index',
         ];
 
         $middlwares = ['web'];
@@ -84,7 +88,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function setUpDatabase($app)
     {
-        $app['db']->connection()->getSchemaBuilder()->create('two_factor', function (Blueprint $table) {
+        $builder = $app['db']->connection()->getSchemaBuilder();
+
+        $builder->create('two_factor', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('identifier')->nullable();
@@ -92,6 +98,13 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $table->string('dial_code');
             $table->boolean('verified')->default(false);
             $table->timestamps();
+        });
+
+        $builder->create('countries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('code', 2);
+            $table->string('dial_code');
         });
     }
 }
