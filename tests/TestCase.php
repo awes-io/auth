@@ -71,6 +71,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesIO\Auth\Controllers\LoginController@login',
             'AwesIO\Auth\Controllers\LoginController@logout',
             'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm',
+            'AwesIO\Auth\Controllers\TwoFactorLoginController@index',
         ];
 
         $middlwares = ['web'];

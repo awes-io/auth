@@ -3,6 +3,7 @@
 namespace AwesIO\Auth\Tests\Feature;
 
 use AwesIO\Auth\Tests\TestCase;
+use AwesIO\Auth\Tests\Stubs\User;
 
 class AuthRoutesTest extends TestCase
 {
@@ -60,5 +61,45 @@ class AuthRoutesTest extends TestCase
         $response = $this->get('login/service/callback');
 
         $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_two_factor_index_route()
+    {
+        $response = $this->get('twofactor');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_two_factor_store_route()
+    {
+        $response = $this->post('twofactor');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_two_factor_verify_route()
+    {
+        $response = $this->post('twofactor/verify');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_two_factor_delete_route()
+    {
+        $response = $this->delete('twofactor');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_login_two_factor_index_route()
+    {
+        $response = $this->get('login/twofactor/verify');
+
+        $response->assertStatus(200);
     }
 }
