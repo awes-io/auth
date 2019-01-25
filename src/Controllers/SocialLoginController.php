@@ -4,14 +4,16 @@ namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use AwesIO\Auth\Facades\Auth as AwesAuth;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 use AwesIO\Auth\Services\Contracts\SocialProvidersManager;
+use AwesIO\Auth\Controllers\Traits\AuthenticatesUsersWith2FA;
 
 class SocialLoginController extends Controller
 {
-    use RedirectsUsers, RedirectsTo;
+    use RedirectsUsers, RedirectsTo, AuthenticatesUsersWith2FA;
 
     /**
      * User repository
@@ -89,7 +91,8 @@ class SocialLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->intended($this->redirectPath());
+        return $this->authenticated($request, $user)
+                ?: redirect()->intended($this->redirectPath());
     }
 
     /**
@@ -121,5 +124,19 @@ class SocialLoginController extends Controller
             'social_id' => $serviceUser->getId(),
             'service' => $service
         ]);
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if (AwesAuth::isTwoFactorEnabled()) {
+            return $this->handleTwoFactorAuthentication($request, $user);
+        }
     }
 }
