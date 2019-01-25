@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('awesio-auth::layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">AWESIO {{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -67,6 +67,19 @@
                     </form>
                 </div>
             </div>
+
+            @if(AwesAuth::isSocialEnabled())
+                <div class="card">
+                    <div class="card-body">
+                        @foreach (config('awesio-auth.socialite.services') as $item)
+                            <a href="{{ route('login.social', strtolower($item['name'])) }}">
+                                {{ $item['name'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

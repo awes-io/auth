@@ -1,74 +1,148 @@
 # Auth
 
-
-TODO: github or gitlab badge 
-
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-[![Coverage report](http://gitlab.awescode.com/awesio/auth/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](http://gitlab.awescode.com/awesio/auth/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.awc.wtf/awesio/auth/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.awc.wtf/awesio/auth/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.awc.wtf/awesio/auth/version.svg)](https://www.awes.io/) 
+[![Coverage report](http://gitlab.awescode.com/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](http://gitlab.awescode.com/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.awc.wtf/awes-io/auth/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.awc.wtf/awes-io/auth/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
 
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
 
 Via Composer
 
 ``` bash
-$ composer require awesio/auth
+$ composer require awes-io/auth
 ```
 
 The package will automatically register itself.
 
-You can publish the migration with:
+You can publish migrations with:
 
 ```bash
-php artisan vendor:publish --provider="AwesIO\Auth\Providers\AuthServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="migrations"
 ```
 
-After the migration has been published you can create the table for Auth by running the migrations:
+After migrations have been published you can create required tables by running:
 
 ```bash
 php artisan migrate
 ```
 
-You can publish the config file with:
+You can publish config file with:
 
 ```bash
-php artisan vendor:publish --provider="AwesIO\Auth\Providers\AuthServiceProvider" --tag="config"
+php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="config"
 ```
 
+You can publish views with:
 
-## Examples of use
+```bash
+php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="views"
+```
+
+## Configuration
+
+You can disable some of package's additional features:
 
 ```php
-use AwesIO\Auth\Facades\Auth;
-
-Auth::lowerStr('Some String'); // 'some string'
-
-Auth::count(); // 1
+'enabled' => [
+    'social', 
+    // 'two_factor',
+],
 ```
 
-## Methods
+Add new socialite services:
 
-#### example()
+```php
+'services' => [
+    'github' => [
+        'name' => 'GitHub'
+    ],
+    ...
+],
+'github' => [
+    'client_id' => env('GITHUB_CLIENT_ID'),
+    ...
+],
+```
 
-Description some example.
+Configure redirects on package's routes:
 
-#### count()
+```php
+'redirects' => [
+    'login' => '/twofactor',
+    'reset_password' => '/',
+    ...
+],
+```
 
-Description some count.
+Several .env variables required if additional modules were enabled in config:
 
-#### validate(string $email)
+```php
+# SOCIALITE GITHUB
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
 
-Throws an `InvalidArgumentException` is email is invalid.
+# 2FA AUTHY
+AUTHY_SECRET=
+```
+
+## Usage
+
+Add to routes/web.php:
+
+```php
+AwesAuth::routes();
+```
+
+By default package will register several routes:
+
+```
++--------+----------+--------------------------+------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
+| Domain | Method   | URI                      | Name                   | Action                                                               | Middleware                                             |
++--------+----------+--------------------------+------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
+|        | GET|HEAD | login                    | login                  | AwesIO\Auth\Controllers\LoginController@showLoginForm                | web,guest                                              |
+|        | POST     | login                    |                        | AwesIO\Auth\Controllers\LoginController@login                        | web,guest                                              |
+|        | GET|HEAD | login/twofactor/verify   | login.twofactor.index  | AwesIO\Auth\Controllers\TwoFactorLoginController@index               | web,guest                                              |
+|        | POST     | login/twofactor/verify   | login.twofactor.verify | AwesIO\Auth\Controllers\TwoFactorLoginController@verify              | web,guest                                              |
+|        | GET|HEAD | login/{service}          | login.social           | AwesIO\Auth\Controllers\SocialLoginController@redirect               | web,guest,AwesIO\Auth\Middlewares\SocialAuthentication |
+|        | GET|HEAD | login/{service}/callback |                        | AwesIO\Auth\Controllers\SocialLoginController@callback               | web,guest,AwesIO\Auth\Middlewares\SocialAuthentication |
+|        | POST     | logout                   | logout                 | AwesIO\Auth\Controllers\LoginController@logout                       | web                                                    |
+|        | POST     | password/email           | password.email         | AwesIO\Auth\Controllers\ForgotPasswordController@sendResetLinkEmail  | web,guest                                              |
+|        | GET|HEAD | password/reset           | password.request       | AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm | web,guest                                              |
+|        | POST     | password/reset           | password.update        | AwesIO\Auth\Controllers\ResetPasswordController@reset                | web,guest                                              |
+|        | GET|HEAD | password/reset/{token}   | password.reset         | AwesIO\Auth\Controllers\ResetPasswordController@showResetForm        | web,guest                                              |
+|        | POST     | register                 |                        | AwesIO\Auth\Controllers\RegisterController@register                  | web,guest                                              |
+|        | GET|HEAD | register                 | register               | AwesIO\Auth\Controllers\RegisterController@showRegistrationForm      | web,guest                                              |
+|        | GET|HEAD | twofactor                | twofactor.index        | AwesIO\Auth\Controllers\TwoFactorController@index                    | web,auth                                               |
+|        | POST     | twofactor                | twofactor.store        | AwesIO\Auth\Controllers\TwoFactorController@store                    | web,auth                                               |
+|        | DELETE   | twofactor                | twofactor.destroy      | AwesIO\Auth\Controllers\TwoFactorController@destroy                  | web,auth                                               |
+|        | POST     | twofactor/verify         | twofactor.verify       | AwesIO\Auth\Controllers\TwoFactorController@verify                   | web,auth                                               |
++--------+----------+--------------------------+------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
+```
+
+Besides standard authentication laravel routes, package will add:
+
+```php
+# Socialite routes
+'login.social'
+'login/{service}/callback'
+
+# 2FA setup and routes for enabling/disabling it
+'twofactor.index', 'twofactor.store', 'twofactor.destroy', 'twofactor.verify'
+
+# 2FA login routes
+'login.twofactor.index', 'login.twofactor.verify'
+```
 
 ## Testing
 
@@ -95,14 +169,14 @@ If you discover any security related issues, please email :author_email instead 
 
 GNU General Public License v3.0. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/awesio/auth.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/awesio/auth.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/awesio/auth/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/awes-io/auth.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/awes-io/auth.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/awes-io/auth/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/awesio/auth
-[link-downloads]: https://packagist.org/packages/awesio/auth
-[link-travis]: https://travis-ci.org/awesio/auth
+[link-packagist]: https://packagist.org/packages/awes-io/auth
+[link-downloads]: https://packagist.org/packages/awes-io/auth
+[link-travis]: https://travis-ci.org/awes-io/auth
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/awesio
+[link-author]: https://github.com/awes-io
 [link-contributors]: ../../contributors]

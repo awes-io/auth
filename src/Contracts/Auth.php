@@ -4,5 +4,10 @@ namespace AwesIO\Auth\Contracts;
 
 interface Auth
 {
-    public static function routes();
+    /**
+     * Register routes.
+     *
+     * @return void
+     */
+    public function routes();
 }

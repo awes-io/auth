@@ -2,15 +2,15 @@
 
 namespace AwesIO\Auth\Controllers;
 
-use App\User;
-use AwesIO\Auth\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
+use AwesIO\Auth\Repositories\Contracts\UserRepository;
 
 class RegisterController extends Controller
 {
-    use RegistersUsers;
+    use RegistersUsers, RedirectsTo;
 
     /**
      * Where to redirect users after registration.
@@ -19,19 +19,28 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $users;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
         $this->middleware('guest');
+
+        $this->users = $users;
     }
 
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showRegistrationForm()
     {
-        return view('awesio-auth::register');
+        return view('awesio-auth::auth.register');
     }
 
     /**
@@ -57,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->users->store([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

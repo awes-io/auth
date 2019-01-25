@@ -2,6 +2,7 @@
 
 namespace AwesIO\Auth\Facades;
 
+use AwesIO\Auth\Contracts\Auth as AuthContract;
 use Illuminate\Support\Facades\Facade;
 
 class Auth extends Facade
@@ -13,6 +14,6 @@ class Auth extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'awesio-auth';
+        return AuthContract::class;
     }
 }

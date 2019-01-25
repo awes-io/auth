@@ -2,19 +2,22 @@
 
 namespace AwesIO\Auth\Controllers;
 
-use AwesIO\Auth\Controllers\Controller;
+use Illuminate\Http\Request;
+use AwesIO\Auth\Facades\Auth;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use AwesIO\Auth\Controllers\Traits\AuthenticatesUsersWith2FA;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, AuthenticatesUsersWith2FA, RedirectsTo;
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -26,8 +29,27 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showLoginForm()
     {
-        return view('awesio-auth::login');
+        return view('awesio-auth::auth.login');
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if (Auth::isTwoFactorEnabled()) {
+            return $this->handleTwoFactorAuthentication($request, $user);
+        }
     }
 }

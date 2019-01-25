@@ -1,5 +1,5 @@
 {
-    "name": "awesio/auth",
+    "name": "awes-io/auth",
     "description": ":description",
     "type": "library",
     "license": "GPL-3.0-only",
@@ -11,18 +11,22 @@
 			"role": "Owner"
 		},
 		{
-			"name": ":author_name",
-			"email": ":author_email",
-			"homepage": ":author_homepage"
+			"name": "Galymzhan Begimov",
+			"email": "begimov@gmail.com",
+			"homepage": "https://github.com/begimov"
 		}
 	],
 	"support": {
 		"email": "support@awescode.de"
 	},
-	"homepage": "https://github.com/awesio/auth",
+	"homepage": "https://github.com/awes-io/auth",
 	"keywords": ["Laravel", "Auth"],
     "require": {
-        "illuminate/support": "~5"
+        "illuminate/support": "~5",
+        "laravel/socialite": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "awes-io/auto-captcha": "v0.0.1"
+
     },
     "require-dev": {
 		"phpunit/phpunit": "~7.0",
@@ -41,7 +45,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --colors=always"
+        "test": "vendor/bin/phpunit --colors=always --configuration phpunit.xml.dist --debug"
     },
     "extra": {
         "laravel": {
@@ -49,7 +53,7 @@
                 "AwesIO\\Auth\\AuthServiceProvider"
             ],
             "aliases": {
-                "Auth": "AwesIO\\Auth\\Facades\\Auth"
+                "AwesAuth": "AwesIO\\Auth\\Facades\\Auth"
             }
         }
     }
