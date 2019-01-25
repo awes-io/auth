@@ -1,18 +1,15 @@
 # Auth
 
-
-TODO: github or gitlab badge 
-
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Build Status][ico-travis]][link-travis]
 [![StyleCI][ico-styleci]][link-styleci]
 
-[![Coverage report](http://gitlab.awescode.com/awesio/auth/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](http://gitlab.awescode.com/awesio/auth/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.awc.wtf/awesio/auth/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.awc.wtf/awesio/auth/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.awc.wtf/awesio/auth/version.svg)](https://www.awes.io/) 
+[![Coverage report](http://gitlab.awescode.com/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](http://gitlab.awescode.com/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.awc.wtf/awes-io/auth/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.awc.wtf/awes-io/auth/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
 
 
 This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
@@ -22,7 +19,7 @@ This is where your description should go. Take a look at [contributing.md](contr
 Via Composer
 
 ``` bash
-$ composer require awesio/auth
+$ composer require awes-io/auth
 ```
 
 The package will automatically register itself.
@@ -95,14 +92,14 @@ If you discover any security related issues, please email :author_email instead 
 
 GNU General Public License v3.0. Please see the [license file](license.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/awesio/auth.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/awesio/auth.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/awesio/auth/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/awes-io/auth.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/awes-io/auth.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/awes-io/auth/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/12345678/shield
 
-[link-packagist]: https://packagist.org/packages/awesio/auth
-[link-downloads]: https://packagist.org/packages/awesio/auth
-[link-travis]: https://travis-ci.org/awesio/auth
+[link-packagist]: https://packagist.org/packages/awes-io/auth
+[link-downloads]: https://packagist.org/packages/awes-io/auth
+[link-travis]: https://travis-ci.org/awes-io/auth
 [link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/awesio
+[link-author]: https://github.com/awes-io
 [link-contributors]: ../../contributors]
