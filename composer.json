@@ -1,5 +1,5 @@
 {
-    "name": "awesio/auth",
+    "name": "awes-io/auth",
     "description": ":description",
     "type": "library",
     "license": "GPL-3.0-only",
@@ -19,7 +19,7 @@
 	"support": {
 		"email": "support@awescode.de"
 	},
-	"homepage": "https://github.com/awesio/auth",
+	"homepage": "https://github.com/awes-io/auth",
 	"keywords": ["Laravel", "Auth"],
     "require": {
         "illuminate/support": "~5",
