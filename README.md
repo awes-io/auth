@@ -12,7 +12,7 @@
 [![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
 
 
-This is where your description should go. Take a look at [contributing.md](contributing.md) to see a to do list.
+Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
 ## Installation
 
@@ -50,11 +50,12 @@ php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="v
 
 ## Configuration
 
-You can disable some of package's features:
+You can disable some of package's additional features:
 
 ```php
 'enabled' => [
-    'social', 'two_factor'
+    'social', 
+    // 'two_factor',
 ],
 ```
 
@@ -73,7 +74,7 @@ Add new socialite services:
 ],
 ```
 
-Configure redirects on existing routes:
+Configure redirects on package's routes:
 
 ```php
 'redirects' => [
@@ -83,7 +84,7 @@ Configure redirects on existing routes:
 ],
 ```
 
-Several new .env variables needed if additional modules were enabled in config:
+Several .env variables required if additional modules were enabled in config:
 
 ```php
 # SOCIALITE GITHUB
@@ -95,7 +96,7 @@ GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
 AUTHY_SECRET=
 ```
 
-## Examples of use
+## Usage
 
 Add to routes/web.php:
 
@@ -129,7 +130,19 @@ By default package will register several routes:
 +--------+----------+--------------------------+------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
 ```
 
-//
+Besides standard authentication laravel routes, package will add:
+
+```php
+# Socialite routes
+'login.social'
+'login/{service}/callback'
+
+# 2FA setup and routes for enabling/disabling it
+'twofactor.index', 'twofactor.store', 'twofactor.destroy', 'twofactor.verify'
+
+# 2FA login routes
+'login.twofactor.index', 'login.twofactor.verify'
+```
 
 ## Testing
 
