@@ -48,6 +48,53 @@ You can publish views with:
 php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="views"
 ```
 
+## Configuration
+
+You can disable some of package's features:
+
+```php
+'enabled' => [
+    'social', 'two_factor'
+],
+```
+
+Add new socialite services:
+
+```php
+'services' => [
+    'github' => [
+        'name' => 'GitHub'
+    ],
+    ...
+],
+'github' => [
+    'client_id' => env('GITHUB_CLIENT_ID'),
+    ...
+],
+```
+
+Configure redirects on existing routes:
+
+```php
+'redirects' => [
+    'login' => '/twofactor',
+    'reset_password' => '/',
+    ...
+],
+```
+
+Several new .env variables needed if additional modules were enabled in config:
+
+```php
+# SOCIALITE GITHUB
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
+
+# 2FA AUTHY
+AUTHY_SECRET=
+```
+
 ## Examples of use
 
 Add to routes/web.php:
@@ -82,20 +129,7 @@ By default package will register several routes:
 +--------+----------+--------------------------+------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
 ```
 
-
-## Methods
-
-#### example()
-
-Description some example.
-
-#### count()
-
-Description some count.
-
-#### validate(string $email)
-
-Throws an `InvalidArgumentException` is email is invalid.
+//
 
 ## Testing
 
