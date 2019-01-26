@@ -24,8 +24,7 @@
     "require": {
         "illuminate/support": "~5",
         "laravel/socialite": "^4.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "awes-io/auto-captcha": "v0.0.1"
+        "guzzlehttp/guzzle": "^6.3"
 
     },
     "require-dev": {
