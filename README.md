@@ -96,6 +96,18 @@ GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
 AUTHY_SECRET=
 ```
 
+If you enabled social and/or two factor authentication add respective traits to User model class:
+
+```php
+use AwesIO\Auth\Models\Traits\HasSocialAuthentication;
+use AwesIO\Auth\Models\Traits\HasTwoFactorAuthentication;
+
+class User extends Authenticatable
+{
+    use HasSocialAuthentication, HasTwoFactorAuthentication;
+}
+```
+
 ## Usage
 
 Add to routes/web.php:
