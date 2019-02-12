@@ -48,6 +48,12 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+        if ($request->ajax()) {
+            return response()->json([
+                'redirectUrl' => config('awesio-auth.redirects.login')
+            ]);
+        }
+
         if (Auth::isTwoFactorEnabled()) {
             return $this->handleTwoFactorAuthentication($request, $user);
         }
