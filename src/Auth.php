@@ -71,17 +71,17 @@ class Auth implements AuthContract
     protected function loginRoutes()
     {
         $this->router->get(
-            'login', 
+            'login',
             '\AwesIO\Auth\Controllers\LoginController@showLoginForm'
         )->name('login');
 
         $this->router->post(
-            'login', 
+            'login',
             '\AwesIO\Auth\Controllers\LoginController@login'
         );
 
-        $this->router->post(
-            'logout', 
+        $this->router->any(
+            'logout',
             '\AwesIO\Auth\Controllers\LoginController@logout'
         )->name('logout');
     }
@@ -94,12 +94,12 @@ class Auth implements AuthContract
     protected function registrationRoutes()
     {
         $this->router->get(
-            'register', 
+            'register',
             '\AwesIO\Auth\Controllers\RegisterController@showRegistrationForm'
         )->name('register');
 
         $this->router->post(
-            'register', 
+            'register',
             '\AwesIO\Auth\Controllers\RegisterController@register'
         );
     }
@@ -112,22 +112,22 @@ class Auth implements AuthContract
     protected function resetPasswordRoutes()
     {
         $this->router->get(
-            'password/reset', 
+            'password/reset',
             '\AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm'
         )->name('password.request');
 
         $this->router->post(
-            'password/email', 
+            'password/email',
             '\AwesIO\Auth\Controllers\ForgotPasswordController@sendResetLinkEmail'
         )->name('password.email');
 
         $this->router->get(
-            'password/reset/{token}', 
+            'password/reset/{token}',
             '\AwesIO\Auth\Controllers\ResetPasswordController@showResetForm'
         )->name('password.reset');
 
         $this->router->post(
-            'password/reset', 
+            'password/reset',
             '\AwesIO\Auth\Controllers\ResetPasswordController@reset'
         )->name('password.update');
     }
@@ -143,12 +143,12 @@ class Auth implements AuthContract
             ->group(function () {
 
                 $this->router->get(
-                    'login/{service}', 
+                    'login/{service}',
                     '\AwesIO\Auth\Controllers\SocialLoginController@redirect'
                 )->name('login.social');
 
                 $this->router->get(
-                    'login/{service}/callback', 
+                    'login/{service}/callback',
                     '\AwesIO\Auth\Controllers\SocialLoginController@callback'
                 );
             });
@@ -166,22 +166,22 @@ class Auth implements AuthContract
             ->group(function () {
 
                 $this->router->get(
-                    'twofactor', 
+                    'twofactor',
                     '\AwesIO\Auth\Controllers\TwoFactorController@index'
                 )->name('twofactor.index');
 
                 $this->router->post(
-                    'twofactor', 
+                    'twofactor',
                     '\AwesIO\Auth\Controllers\TwoFactorController@store'
                 )->name('twofactor.store');
 
                 $this->router->post(
-                    'twofactor/verify', 
+                    'twofactor/verify',
                     '\AwesIO\Auth\Controllers\TwoFactorController@verify'
                 )->name('twofactor.verify');
 
                 $this->router->delete(
-                    'twofactor', 
+                    'twofactor',
                     '\AwesIO\Auth\Controllers\TwoFactorController@destroy'
                 )->name('twofactor.destroy');
             });
@@ -191,12 +191,12 @@ class Auth implements AuthContract
             ->group(function () {
 
                 $this->router->get(
-                    'login/twofactor/verify', 
+                    'login/twofactor/verify',
                     '\AwesIO\Auth\Controllers\TwoFactorLoginController@index'
                 )->name('login.twofactor.index');
 
                 $this->router->post(
-                    'login/twofactor/verify', 
+                    'login/twofactor/verify',
                     '\AwesIO\Auth\Controllers\TwoFactorLoginController@verify'
                 )->name('login.twofactor.verify');
             });

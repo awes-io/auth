@@ -1,16 +1,10 @@
 # Auth
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Build Status][ico-travis]][link-travis]
-[![StyleCI][ico-styleci]][link-styleci]
-
 [![Coverage report](http://gitlab.awescode.com/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
 [![Build status](http://gitlab.awescode.com/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
 [![Composer Ready](https://www.awc.wtf/awes-io/auth/status.svg)](https://www.awes.io/)
 [![Downloads](https://www.awc.wtf/awes-io/auth/downloads.svg)](https://www.awes.io/)
 [![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
-
 
 Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
@@ -34,6 +28,12 @@ After migrations have been published you can create required tables by running:
 
 ```bash
 php artisan migrate
+```
+
+And seed countries table:
+
+```bash
+php artisan db:seed --class="AwesIO\Auth\Seeds\CountryTableSeeder"
 ```
 
 You can publish config file with:
@@ -94,6 +94,18 @@ GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
 
 # 2FA AUTHY
 AUTHY_SECRET=
+```
+
+If you enabled social and/or two factor authentication add respective traits to User model class:
+
+```php
+use AwesIO\Auth\Models\Traits\HasSocialAuthentication;
+use AwesIO\Auth\Models\Traits\HasTwoFactorAuthentication;
+
+class User extends Authenticatable
+{
+    use HasSocialAuthentication, HasTwoFactorAuthentication;
+}
 ```
 
 ## Usage
