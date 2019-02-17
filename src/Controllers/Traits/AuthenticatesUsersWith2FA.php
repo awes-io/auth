@@ -4,9 +4,15 @@ namespace AwesIO\Auth\Controllers\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use AwesIO\Auth\Facades\Auth as AwesAuth;
 
 trait AuthenticatesUsersWith2FA
 {
+    protected function isTwoFactorEnabled($user)
+    {
+        return AwesAuth::isTwoFactorEnabled() && $user->isTwoFactorEnabled();
+    }
+
     /**
      * Handle 2FA, stores user data in session, logs out and redirects
      *
@@ -16,16 +22,19 @@ trait AuthenticatesUsersWith2FA
      */
     protected function handleTwoFactorAuthentication(Request $request, $user)
     {
-        if ($user->isTwoFactorEnabled()) {
+        $request->session()->put('two_factor', (object) [
+            'user_id' => $user->id,
+            'remember' => $request->has('remember')
+        ]);
 
-            $request->session()->put('two_factor', (object) [
-                'user_id' => $user->id,
-                'remember' => $request->has('remember')
+        Auth::logout();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'redirectUrl' => route('login.twofactor.index', [], false)
             ]);
-
-            Auth::logout();
-
-            return redirect()->route('login.twofactor.index');
         }
+
+        return redirect()->route('login.twofactor.index');
     }
 }

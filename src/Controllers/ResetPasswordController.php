@@ -53,4 +53,21 @@ class ResetPasswordController extends Controller
             ['token' => $token, 'email' => $request->email]
         );
     }
+
+    /**
+     * Get the response for a successful password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetResponse(Request $request, $response)
+    {
+        if ($request->ajax()) {
+            return $this->ajaxRedirectTo($request);
+        }
+        
+        return redirect($this->redirectPath())
+                            ->with('status', trans($response));
+    }
 }

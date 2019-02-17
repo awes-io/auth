@@ -24,7 +24,19 @@ trait RedirectsTo
      */
     protected function redirectTo()
     {
-        return config('awesio-auth.redirects.' . $this->redirectMappings[get_class($this)])
+        return $this->getRedirectToUrl()
             ?: (property_exists($this, 'redirectTo') ? $this->redirectTo : '/');
+    }
+
+    protected function ajaxRedirectTo($request)
+    {
+        return response()->json([
+            'redirectUrl' => $this->getRedirectToUrl()
+        ]);
+    }
+
+    protected function getRedirectToUrl()
+    {
+        return config('awesio-auth.redirects.' . $this->redirectMappings[get_class($this)]);
     }
 }

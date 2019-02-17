@@ -53,4 +53,18 @@ class LoginTest extends TestCase
 
         $this->assertGuest();
     }
+
+    /** @test */
+    public function it_responds_with_json_to_ajax_request_after_successful_login()
+    {
+        $user = factory(User::class)->create();
+
+        $this->json('POST', 'login', [
+            'email' => $user->email,
+            'password' => 'secret'
+        ], ['X-Requested-With' => 'XMLHttpRequest']
+        )->assertExactJson([
+            'redirectUrl' => config('awesio-auth.redirects.login')
+        ]);
+    }
 }

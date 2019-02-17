@@ -3,7 +3,6 @@
 namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
-use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use AwesIO\Auth\Controllers\Traits\AuthenticatesUsersWith2FA;
@@ -48,14 +47,12 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if ($request->ajax()) {
-            return response()->json([
-                'redirectUrl' => config('awesio-auth.redirects.login')
-            ]);
+        if ($this->isTwoFactorEnabled($user)) {
+            return $this->handleTwoFactorAuthentication($request, $user);
         }
 
-        if (Auth::isTwoFactorEnabled()) {
-            return $this->handleTwoFactorAuthentication($request, $user);
+        if ($request->ajax()) {
+            return $this->ajaxRedirectTo($request);
         }
     }
 }

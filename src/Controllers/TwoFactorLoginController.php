@@ -41,6 +41,21 @@ class TwoFactorLoginController extends Controller
 
         session()->forget('two_factor');
 
-        return redirect()->intended($this->redirectPath());
+        return $this->authenticated($request)
+                ?: redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->ajaxRedirectTo($request);
+        }
     }
 }

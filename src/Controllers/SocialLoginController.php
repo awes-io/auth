@@ -4,7 +4,6 @@ namespace AwesIO\Auth\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use AwesIO\Auth\Facades\Auth as AwesAuth;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
@@ -135,7 +134,7 @@ class SocialLoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if (AwesAuth::isTwoFactorEnabled()) {
+        if ($this->isTwoFactorEnabled($user)) {
             return $this->handleTwoFactorAuthentication($request, $user);
         }
     }
