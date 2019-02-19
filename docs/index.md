@@ -1,6 +1,6 @@
 # Authentication Laravel package
 
-Laravel AWES.IO Auth package.
+Laravel AWES.IO Auth package with ability to use standard authentication flow as well as socialite and two factor authentication.
 
 ## Installation
 
