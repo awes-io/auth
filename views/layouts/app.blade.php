@@ -72,6 +72,15 @@
             </div>
         </nav>
 
+        @auth
+            @if (!auth()->user()->hasVerifiedEmail())
+                <div class="alert alert-danger">
+                    Before proceeding, please check your email for a verification code and link.
+                    If you did not receive the email click here to <a href="{{ route('verification.resend') }}">request another.</a>
+                </div>
+            @endif
+        @endauth
+
         <main class="py-4">
             @yield('content')
         </main>

@@ -41,6 +41,11 @@ class Auth implements AuthContract
         if ($this->isTwoFactorEnabled()) {
             $this->twoFactorRoutes();
         }
+
+        // Email verification Routes...
+        if ($this->isEmailVerificationEnabled()) {
+            $this->emailVerificationRoutes();
+        }
     }
 
     /**
@@ -61,6 +66,16 @@ class Auth implements AuthContract
     public function isTwoFactorEnabled()
     {
         return in_array('two_factor', config('awesio-auth.enabled'));
+    }
+
+    /**
+     * Check if two factor authentication eneabled in config
+     *
+     * @return boolean
+     */
+    public function isEmailVerificationEnabled()
+    {
+        return in_array('email_verification', config('awesio-auth.enabled'));
     }
 
     /**
@@ -200,5 +215,33 @@ class Auth implements AuthContract
                     '\AwesIO\Auth\Controllers\TwoFactorLoginController@verify'
                 )->name('login.twofactor.verify');
             });
+    }
+
+    /**
+     * Email verification routes.
+     *
+     * @return void
+     */
+    protected function emailVerificationRoutes()
+    {
+        $this->router->get(
+            'email/verify', 
+            '\AwesIO\Auth\Controllers\VerificationController@show'
+        )->name('verification.code');
+
+        $this->router->post(
+            'email/verify', 
+            '\AwesIO\Auth\Controllers\VerificationController@verifyCode'
+        )->name('verification.code.verify');
+
+        $this->router->get(
+            'email/verify/{id}', 
+            '\AwesIO\Auth\Controllers\VerificationController@verify'
+        )->name('verification.verify');
+
+        $this->router->get(
+            'email/resend', 
+            '\AwesIO\Auth\Controllers\VerificationController@resend'
+        )->name('verification.resend');
     }
 }
