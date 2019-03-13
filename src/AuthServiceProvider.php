@@ -4,8 +4,10 @@ namespace AwesIO\Auth;
 
 use AwesIO\Auth\Auth;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use AwesIO\Auth\Services\AuthyTwoFactor;
+use AwesIO\Auth\Listeners\EventSubscriber;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 use AwesIO\Auth\Contracts\Auth as AuthContract;
 use AwesIO\Auth\Services\SocialiteProvidersManager;
@@ -36,6 +38,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../views' => resource_path('views/vendor/awesio-auth'),
         ], 'views');
+
+        Event::subscribe(EventSubscriber::class);
     }
 
     /**

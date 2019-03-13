@@ -15,6 +15,7 @@ trait RedirectsTo
         'AwesIO\Auth\Controllers\ResetPasswordController' => 'reset_password',
         'AwesIO\Auth\Controllers\SocialLoginController' => 'social_login',
         'AwesIO\Auth\Controllers\TwoFactorLoginController' => 'twofactor_login',
+        'AwesIO\Auth\Controllers\VerificationController' => 'email_verification',
     ];
 
     /**

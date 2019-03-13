@@ -4,13 +4,14 @@ namespace AwesIO\Auth\Tests\Stubs;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use AwesIO\Auth\Models\Traits\SendsEmailVerification;
 use AwesIO\Auth\Models\Traits\HasSocialAuthentication;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use AwesIO\Auth\Models\Traits\HasTwoFactorAuthentication;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasSocialAuthentication, HasTwoFactorAuthentication;
+    use Notifiable, HasSocialAuthentication, HasTwoFactorAuthentication, SendsEmailVerification;
 
     /**
      * The attributes that are mass assignable.

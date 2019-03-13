@@ -102,4 +102,36 @@ class AuthRoutesTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /** @test */
+    public function it_has_login_verification_code_route()
+    {
+        $response = $this->get('email/verify');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_login_verification_code_verify_route()
+    {
+        $response = $this->post('email/verify');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_login_verification_verify_route()
+    {
+        $response = $this->get('email/verify/1');
+
+        $response->assertStatus(302);
+    }
+
+    /** @test */
+    public function it_has_login_verification_resend_route()
+    {
+        $response = $this->get('email/resend');
+
+        $response->assertStatus(302);
+    }
 }

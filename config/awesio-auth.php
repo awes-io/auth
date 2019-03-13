@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'enabled' => [
-        'social', 'two_factor'
+        'social', 'two_factor', 'email_verification'
     ],
 
     /*
@@ -65,6 +65,7 @@ return [
         'reset_password' => '/',
         'social_login' => '/twofactor',
         'twofactor_login' => '/twofactor',
+        'email_verification' => '/twofactor',
     ],
 
 ];
