@@ -78,6 +78,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesIO\Auth\Controllers\TwoFactorController@index',
             'AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm',
             'AwesIO\Auth\Controllers\ResetPasswordController@showResetForm',
+            'AwesIO\Auth\Controllers\VerificationController@show',
         ];
 
         $middlwares = ['web'];
