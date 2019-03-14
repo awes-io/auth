@@ -102,6 +102,29 @@ class User extends Authenticatable
 }
 ```
 
+### Email verification
+
+To use email verification functionality, add SendsEmailVerification trait:
+
+```php
+use AwesIO\Auth\Models\Traits\SendsEmailVerification;
+
+class User extends Authenticatable
+{
+    use SendsEmailVerification;
+}
+```
+
+and make sure to enable it in awesio-auth.php config file:
+
+```php
+'enabled' => [
+    ...
+    'email_verification',
+    ...
+],
+```
+
 ## Usage
 
 Add to routes/web.php:
