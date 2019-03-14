@@ -2,6 +2,9 @@
 
 namespace AwesIO\Auth\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -17,7 +20,7 @@ class ForgotPasswordController extends Controller
     |
     */
 
-    use SendsPasswordResetEmails;
+    use SendsPasswordResetEmails, RedirectsUsers, RedirectsTo;
 
     /**
      * Create a new controller instance.
@@ -37,5 +40,22 @@ class ForgotPasswordController extends Controller
     public function showLinkRequestForm()
     {
         return view('awesio-auth::auth.passwords.email');
+    }
+
+    /**
+     * Get the response for a successful password reset link.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetLinkResponse(Request $request, $response)
+    {
+        if ($request->ajax()) {
+            return $this->ajaxRedirectTo($request);
+        }
+        
+        return redirect($this->redirectPath())
+                            ->with('status', trans($response));
     }
 }
