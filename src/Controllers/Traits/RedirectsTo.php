@@ -33,7 +33,9 @@ trait RedirectsTo
     protected function ajaxRedirectTo($request)
     {
         return response()->json([
-            'redirectUrl' => $this->getRedirectToUrl()
+            'redirectUrl' => redirect()
+                ->intended($this->getRedirectToUrl())
+                ->getTargetUrl()
         ]);
     }
 
