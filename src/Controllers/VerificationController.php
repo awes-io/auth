@@ -107,7 +107,7 @@ class VerificationController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('resent', true);
+        // return back()->with('resent', true);
     }
 
     protected function isValidCode($stored, $recieved)
