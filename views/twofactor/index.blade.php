@@ -69,7 +69,7 @@
                             <form method="POST" action="{{ route('twofactor.store') }}">
                                 @csrf
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label for="dial_code" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
 
                                     <div class="col-md-6">
@@ -85,7 +85,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row">
                                     <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>

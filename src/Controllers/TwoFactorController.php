@@ -31,11 +31,13 @@ class TwoFactorController extends Controller
      */
     public function store(TwoFactorStoreRequest $request, TwoFactor $twoFactor)
     {
+        $codeAndPhone = preg_split('/\s/', $request->phone, 2);
+
         $user = $request->user();
 
         $user->twoFactor()->create([
-            'phone' => $request->phone,
-            'dial_code' => $request->dial_code,
+            'phone' => $codeAndPhone[1],
+            'dial_code' => $codeAndPhone[0],
         ]);
 
         if ($response = $twoFactor->register($user)) {

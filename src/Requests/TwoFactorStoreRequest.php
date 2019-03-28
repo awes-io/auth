@@ -3,6 +3,7 @@
 namespace AwesIO\Auth\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use AwesIO\Auth\Rules\ValidPhone;
 
 class TwoFactorStoreRequest extends FormRequest
 {
@@ -24,8 +25,8 @@ class TwoFactorStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required',
-            'dial_code' => 'required|exists:countries,dial_code',
+            'phone' => ['required', new ValidPhone],
+            // 'dial_code' => 'required|exists:countries,dial_code',
         ];
     }
 }
