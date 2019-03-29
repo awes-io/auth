@@ -5,11 +5,22 @@ namespace AwesIO\Auth\Controllers;
 use Illuminate\Http\Request;
 use AwesIO\Auth\Models\Country;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
+use Illuminate\Foundation\Auth\RedirectsUsers;
+use AwesIO\Auth\Controllers\Traits\RedirectsTo;
 use AwesIO\Auth\Requests\TwoFactorStoreRequest;
 use AwesIO\Auth\Requests\TwoFactorVerifyRequest;
 
 class TwoFactorController extends Controller
 {
+    use RedirectsUsers, RedirectsTo;
+
+    /**
+     * Where to redirect users.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
     /**
      * Show the application's two factor setup form.
      *
@@ -45,7 +56,7 @@ class TwoFactorController extends Controller
                 'identifier' => $response->user->id
             ]);
         }
-        return back();
+        return $this->twofactored($request) ?: back();
     }
 
     /**
@@ -60,7 +71,7 @@ class TwoFactorController extends Controller
             'verified' => true
         ]);
 
-        return back();
+        return $this->twofactored($request) ?: back();
     }
 
     /**
@@ -76,6 +87,13 @@ class TwoFactorController extends Controller
 
             $user->twoFactor()->delete();
         }
-        return back();
+        return $this->twofactored($request) ?: back();
+    }
+
+    protected function twofactored(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->ajaxRedirectTo($request);
+        }
     }
 }

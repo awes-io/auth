@@ -67,6 +67,7 @@ return [
         'twofactor_login' => '/twofactor',
         'email_verification' => '/twofactor',
         'forgot_password' => '/password/reset',
+        'twofactor' => '/',
     ],
 
 ];

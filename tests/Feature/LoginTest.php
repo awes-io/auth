@@ -64,7 +64,7 @@ class LoginTest extends TestCase
             'password' => 'secret'
         ], ['X-Requested-With' => 'XMLHttpRequest']
         )->assertExactJson([
-            'redirectUrl' => config('awesio-auth.redirects.login')
+            'redirectUrl' => 'http://localhost' . config('awesio-auth.redirects.login')
         ]);
     }
 }
