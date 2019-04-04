@@ -89,6 +89,29 @@ class AuthyTwoFactor implements TwoFactor
     }
 
     /**
+     * Request QR code link.
+     *
+     * @param string $authy_id User's id stored in your database
+     * @param array  $opts     Array of options, for example: array("qr_size" => 300)
+     *
+     * @return mixed
+     */
+    public function qrCode(User $user)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                'https://api.authy.com/protected/json/users/'
+                    . $user->twoFactor->identifier
+                    . '/secret?api_key=' . config('awesio-auth.two_factor.authy.secret')
+            );
+        } catch (\Exception $e) {
+            return false;
+        }
+        return json_decode($response->getBody());
+    }
+
+    /**
      * Get data needed for user registration on Authy
      *
      * @param \App\User $user

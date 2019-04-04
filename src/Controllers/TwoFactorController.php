@@ -28,9 +28,13 @@ class TwoFactorController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
+        if (auth()->user()->isTwoFactorPending()) {
+            $qrCode = app()->make(TwoFactor::class)->qrCode(auth()->user());
+        }
         
-        return view('awesio-auth::twofactor.index', compact('countries'));
+        // $countries = Country::all();
+        
+        return view('awesio-auth::twofactor.index', compact('countries', 'qrCode'));
     }
 
     /**

@@ -25,7 +25,7 @@
     
                     @else
                         @if (auth()->user()->isTwoFactorPending())
-
+                            <img src="{{ $qrCode->qr_code }}" alt="">
                             <form action="{{ route('twofactor.verify') }}" method="POST">
                                 @csrf
                                 <div class="form-group row">
