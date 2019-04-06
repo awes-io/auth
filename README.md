@@ -6,7 +6,7 @@
 [![Downloads](https://www.awc.wtf/awes-io/auth/downloads.svg)](https://www.awes.io/)
 [![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
 
-Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list.
+Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list..
 
 ## Installation
 
