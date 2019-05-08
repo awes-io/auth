@@ -242,6 +242,6 @@ class Auth implements AuthContract
         $this->router->get(
             'email/resend', 
             '\AwesIO\Auth\Controllers\VerificationController@resend'
-        )->name('verification.resend');
+        )->name('verification.resend')->middleware('throttle:1,0.2');
     }
 }
