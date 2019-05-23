@@ -26,7 +26,11 @@ class TwoFactor implements TwoFactorInterface
      */
     public function register($user)
     {
-        return false;
+        $respose = new \stdClass();
+        $user = new \stdClass();
+        $user->id = uniqid();
+        $respose->user = $user;
+        return $respose;
     }
 
     /**
@@ -62,6 +66,8 @@ class TwoFactor implements TwoFactorInterface
      */
     public function qrCode($user)
     {
-        return json_decode([]);
+        $respose = new \stdClass();
+        $respose->qr_code = uniqid();
+        return $respose;
     }
 }
