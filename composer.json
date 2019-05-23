@@ -42,7 +42,10 @@
     "autoload-dev": {
         "psr-4": {
             "AwesIO\\Auth\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always --configuration phpunit.xml.dist --debug"

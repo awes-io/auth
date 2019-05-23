@@ -24,13 +24,18 @@ class TwoFactorTest extends TestCase
     }
 
     /** @test */
-    // public function it_stores_new_user_two_factor_record()
-    // {
-    //     $user = factory(User::class)->create();
+    public function it_stores_new_user_two_factor_record()
+    {
+        $user = factory(User::class)->create();
 
-    //     dd($this->actingAs($user)->post('twofactor', [
-    //         'phone' => uniqid(),
-    //         'dial_code' => '7'
-    //     ]));
-    // }
+        $this->actingAs($user)->post('twofactor', [
+            'phone' => ($code = '+7') . ' ' . ($phone = '999 999-99-99'),
+        ]);
+        
+        $this->assertDatabaseHas('two_factor', [
+            'user_id' => $user->id,
+            'phone' => $phone,
+            'dial_code' => $code
+        ]);
+    }
 }
