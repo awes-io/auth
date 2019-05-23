@@ -1,6 +1,6 @@
 <?php
 
-namespace AwesIO\Auth\Tests\Unit;
+namespace AwesIO\Auth\Tests\Unit\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
@@ -17,7 +17,6 @@ class AuthyTest extends TestCase
     /** @test */
     public function it_returns_false_if_something_wrong()
     {
-
         $user = factory(User::class)->create();
 
         factory(TwoFactor::class)->create([

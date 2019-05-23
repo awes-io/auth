@@ -113,5 +113,15 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $table->string('code', 2);
             $table->string('dial_code');
         });
+
+        $builder->create('users_social', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('social_id');
+            $table->string('service');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 }
