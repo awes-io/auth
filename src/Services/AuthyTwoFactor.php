@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Services;
 
-use App\User;
 use GuzzleHttp\Client;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 
@@ -23,10 +22,10 @@ class AuthyTwoFactor implements TwoFactor
     /**
      * Register user on Authy
      *
-     * @param \App\User $user
+     * @param $user
      * @return boolean|object
      */
-    public function register(User $user)
+    public function register($user)
     {
         try {
             $response = $this->client->request(
@@ -45,11 +44,11 @@ class AuthyTwoFactor implements TwoFactor
     /**
      * Verify if 2FA token is valid
      *
-     * @param \App\User $user
+     * @param $user
      * @param string $token
      * @return boolean
      */
-    public function verifyToken(User $user, $token)
+    public function verifyToken($user, $token)
     {
         try {
             $response = $this->client->request(
@@ -70,10 +69,10 @@ class AuthyTwoFactor implements TwoFactor
     /**
      * Remove user from Authy
      *
-     * @param \App\User $user
+     * @param $user
      * @return boolean
      */
-    public function remove(User $user)
+    public function remove($user)
     {
         try {
             $response = $this->client->request(
@@ -91,12 +90,11 @@ class AuthyTwoFactor implements TwoFactor
     /**
      * Request QR code link.
      *
-     * @param string $authy_id User's id stored in your database
-     * @param array  $opts     Array of options, for example: array("qr_size" => 300)
+     * @param array  $user
      *
      * @return mixed
      */
-    public function qrCode(User $user)
+    public function qrCode($user)
     {
         try {
             $response = $this->client->request(
@@ -114,10 +112,10 @@ class AuthyTwoFactor implements TwoFactor
     /**
      * Get data needed for user registration on Authy
      *
-     * @param \App\User $user
+     * @param $user
      * @return array
      */
-    protected function getUserRegistrationPayload(User $user)
+    protected function getUserRegistrationPayload($user)
     {
         return [
             'user' => [

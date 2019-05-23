@@ -5,7 +5,9 @@ namespace AwesIO\Auth\Tests;
 use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Tests\Stubs\User;
 use AwesIO\Auth\AuthServiceProvider;
+use AwesIO\Auth\Tests\Stubs\TwoFactor;
 use Illuminate\Database\Schema\Blueprint;
+use AwesIO\Auth\Services\Contracts\TwoFactor as TwoFactorContract;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -23,6 +25,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assignRouteActionMiddlewares();
 
         $this->withFactories(__DIR__ . '/../database/factories');
+
+        $this->app->singleton(TwoFactorContract::class, TwoFactor::class);
     }
 
     /**

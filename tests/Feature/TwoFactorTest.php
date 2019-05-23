@@ -38,4 +38,28 @@ class TwoFactorTest extends TestCase
             'dial_code' => $code
         ]);
     }
+
+    /** @test */
+    public function it_destroys_user_two_factor_record()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)->post('twofactor', [
+            'phone' => ($code = '+7') . ' ' . ($phone = '999 999-99-99'),
+        ]);
+        
+        $this->assertDatabaseHas('two_factor', [
+            'user_id' => $user->id,
+            'phone' => $phone,
+            'dial_code' => $code,
+        ]);
+
+        $this->actingAs($user)->delete('twofactor');
+
+        $this->assertDatabaseMissing('two_factor', [
+            'user_id' => $user->id,
+            'phone' => $phone,
+            'dial_code' => $code,
+        ]);
+    }
 }
