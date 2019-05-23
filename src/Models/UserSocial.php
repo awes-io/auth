@@ -30,6 +30,6 @@ class UserSocial extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(getModelForGuard(config('auth.defaults.guard')));
     }
 }
