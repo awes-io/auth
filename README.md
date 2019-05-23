@@ -1,10 +1,10 @@
 # Auth
 
-[![Coverage report](http://gitlab.awescode.com/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](http://gitlab.awescode.com/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.awc.wtf/awes-io/auth/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.awc.wtf/awes-io/auth/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.awc.wtf/awes-io/auth/version.svg)](https://www.awes.io/) 
+[![Coverage report](https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
+[![Build status](https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
+[![Composer Ready](https://www.pkgkit.com/4GBWO/awes-io/auth/status.svg)](https://www.awes.io/)
+[![Downloads](https://www.pkgkit.com/4GBWO/awes-io/auth/downloads.svg)](https://www.awes.io/)
+[![Last version](https://www.pkgkit.com/4GBWO/awes-io/auth/version.svg)](https://www.awes.io/) 
 
 Laravel AWES.IO Auth package. Take a look at [contributing.md](contributing.md) to see a to do list.
 
