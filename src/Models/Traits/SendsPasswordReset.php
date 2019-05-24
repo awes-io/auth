@@ -21,7 +21,7 @@ trait SendsPasswordReset
 
                 $url = url(route('password.reset', $token));
 
-                return (new ResetPassword($token, $url))
+                return (new ResetPassword($url))
                     ->to($notifiable->email);
             }
         );
