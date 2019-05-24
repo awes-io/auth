@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Models;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class UserSocial extends Model
