@@ -113,16 +113,6 @@ class User extends Authenticatable
 }
 ```
 
-and make sure to enable it in awesio-auth.php config file:
-
-```php
-'enabled' => [
-    ...
-    'email_verification',
-    ...
-],
-```
-
 ## Usage
 
 Add to routes/web.php:
