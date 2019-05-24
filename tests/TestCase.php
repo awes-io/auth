@@ -79,6 +79,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm',
             'AwesIO\Auth\Controllers\TwoFactorLoginController@index',
             'AwesIO\Auth\Controllers\SocialLoginController@redirect',
+            'AwesIO\Auth\Controllers\SocialLoginController@callback',
             'AwesIO\Auth\Controllers\TwoFactorController@index',
             'AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm',
             'AwesIO\Auth\Controllers\ResetPasswordController@showResetForm',
