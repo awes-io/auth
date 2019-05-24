@@ -3,6 +3,7 @@
 namespace AwesIO\Auth\Tests\Feature;
 
 use AwesIO\Auth\Tests\TestCase;
+use AwesIO\Auth\Models\TwoFactor;
 use AwesIO\Auth\Tests\Stubs\User;
 
 class LoginTest extends TestCase
@@ -66,5 +67,23 @@ class LoginTest extends TestCase
         )->assertExactJson([
             'redirectUrl' => 'http://localhost' . config('awesio-auth.redirects.login')
         ]);
+    }
+
+    /** @test */
+    public function it_handles_two_factor_authentication_and_redirects()
+    {
+        $user = factory(User::class)->create();
+
+        factory(TwoFactor::class)->create([
+            'user_id' => $user->id,
+            'verified' => 1
+        ]);
+
+        $this->json('POST', 'login', [
+            'email' => $user->email,
+            'password' => 'secret'
+        ])->assertRedirect('/login/twofactor/verify');
+
+        $this->assertGuest();
     }
 }

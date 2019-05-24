@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Rules;
 
-use App\User;
 use Illuminate\Contracts\Validation\Rule;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
 
@@ -10,8 +9,6 @@ class ValidTwoFactorToken implements Rule
 {
     /**
      * User model
-     *
-     * @var \App\User
      */
     protected $user;
 
@@ -27,7 +24,7 @@ class ValidTwoFactorToken implements Rule
      *
      * @return void
      */
-    public function __construct(User $user, TwoFactor $twoFactor)
+    public function __construct($user, TwoFactor $twoFactor)
     {
         $this->user = $user;
 

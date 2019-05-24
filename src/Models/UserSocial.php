@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Models;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class UserSocial extends Model
@@ -30,6 +29,6 @@ class UserSocial extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(getModelForGuard(config('auth.defaults.guard')));
     }
 }

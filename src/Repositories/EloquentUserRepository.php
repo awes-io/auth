@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Repositories;
 
-use App\User;
 use AwesIO\Auth\Repositories\Contracts\UserRepository;
 
 class EloquentUserRepository implements UserRepository
@@ -12,11 +11,11 @@ class EloquentUserRepository implements UserRepository
      *
      * @param array $serviceUser
      * @param string $service
-     * @return \App\User
+     * @return 
      */
     public function getUserBySocial($serviceUser, $service)
     {
-        return User::where('email', $serviceUser->getEmail())
+        return getModelForGuard(config('auth.defaults.guard'))::where('email', $serviceUser->getEmail())
             ->orWhereHas('social', 
                 function ($query) use ($serviceUser, $service) {
                     $query->where('social_id', $serviceUser->getId())->where('service', $service);
@@ -28,10 +27,10 @@ class EloquentUserRepository implements UserRepository
      * Create new user
      *
      * @param array $data
-     * @return \App\User
+     * @return 
      */
     public function store(array $data)
     {
-        return User::create($data);
+        return getModelForGuard(config('auth.defaults.guard'))::create($data);
     }
 }

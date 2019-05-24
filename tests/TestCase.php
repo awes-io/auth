@@ -5,7 +5,9 @@ namespace AwesIO\Auth\Tests;
 use AwesIO\Auth\Facades\Auth;
 use AwesIO\Auth\Tests\Stubs\User;
 use AwesIO\Auth\AuthServiceProvider;
+use AwesIO\Auth\Tests\Stubs\TwoFactor;
 use Illuminate\Database\Schema\Blueprint;
+use AwesIO\Auth\Services\Contracts\TwoFactor as TwoFactorContract;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -23,6 +25,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $this->assignRouteActionMiddlewares();
 
         $this->withFactories(__DIR__ . '/../database/factories');
+
+        $this->app->singleton(TwoFactorContract::class, TwoFactor::class);
     }
 
     /**
@@ -75,6 +79,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             'AwesIO\Auth\Controllers\RegisterController@showRegistrationForm',
             'AwesIO\Auth\Controllers\TwoFactorLoginController@index',
             'AwesIO\Auth\Controllers\SocialLoginController@redirect',
+            'AwesIO\Auth\Controllers\SocialLoginController@callback',
             'AwesIO\Auth\Controllers\TwoFactorController@index',
             'AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm',
             'AwesIO\Auth\Controllers\ResetPasswordController@showResetForm',
@@ -108,6 +113,16 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $table->string('name');
             $table->string('code', 2);
             $table->string('dial_code');
+        });
+
+        $builder->create('users_social', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->string('social_id');
+            $table->string('service');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 }

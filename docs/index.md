@@ -1,6 +1,6 @@
-# Authentication Laravel package
+# Auth
 
-Laravel AWES.IO Auth package with ability to use standard authentication flow as well as socialite and two factor authentication.
+Laravel Auth package with buit-in two-factor (Authy) and social authentication (Socialite).
 
 ## Installation
 
@@ -12,31 +12,19 @@ $ composer require awes-io/auth
 
 The package will automatically register itself.
 
-You can publish migrations with:
+You can publish migrations:
 
 ```bash
 php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="migrations"
 ```
 
-After migrations have been published you can create required tables by running:
+After migrations have been published you can create required db tables by running:
 
 ```bash
 php artisan migrate
 ```
 
-And seed countries table:
-
-```bash
-php artisan db:seed --class="AwesIO\Auth\Seeds\CountryTableSeeder"
-```
-
-You can publish config file with:
-
-```bash
-php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="config"
-```
-
-You can publish views with:
+Publish views:
 
 ```bash
 php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="views"
@@ -44,12 +32,19 @@ php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="v
 
 ## Configuration
 
-You can disable some of package's additional features:
+Publish config file:
+
+```bash
+php artisan vendor:publish --provider="AwesIO\Auth\AuthServiceProvider" --tag="config"
+```
+
+You can disable additional features by commenting them out:
 
 ```php
 'enabled' => [
     'social', 
     // 'two_factor',
+    // 'email_verification',
 ],
 ```
 
@@ -68,7 +63,7 @@ Add new socialite services:
 ],
 ```
 
-Configure redirects on package's routes:
+And configure redirect paths:
 
 ```php
 'redirects' => [
@@ -78,6 +73,8 @@ Configure redirects on package's routes:
 ],
 ```
 
+### Social and two-factor authentication
+
 Several .env variables required if additional modules were enabled in config:
 
 ```php
@@ -86,7 +83,7 @@ GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 GITHUB_REDIRECT_URL=http://auth.test/login/github/callback
 
-# 2FA AUTHY
+# TWO FACTOR AUTHY
 AUTHY_SECRET=
 ```
 
@@ -102,27 +99,18 @@ class User extends Authenticatable
 }
 ```
 
-### Email verification
+### Email verification & resetting passwords
 
-To use email verification functionality, add SendsEmailVerification trait:
+To use email verification functionality and to reset passwords, add `SendsEmailVerification` and `SendsPasswordReset` traits:
 
 ```php
+use AwesIO\Auth\Models\Traits\SendsPasswordReset;
 use AwesIO\Auth\Models\Traits\SendsEmailVerification;
 
 class User extends Authenticatable
 {
-    use SendsEmailVerification;
+    use SendsEmailVerification, SendsPasswordReset;
 }
-```
-
-and make sure to enable it in awesio-auth.php config file:
-
-```php
-'enabled' => [
-    ...
-    'email_verification',
-    ...
-],
 ```
 
 ## Usage
@@ -133,13 +121,19 @@ Add to routes/web.php:
 AwesAuth::routes();
 ```
 
-By default package will register several routes:
+You can disable registration:
+
+```php
+AwesAuth::routes(['register' => false]);
+```
+
+Package will register several routes:
 
 ```
 +--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
 | Domain | Method                                 | URI                      | Name                     | Action                                                               | Middleware                                             |
 +--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
-|        | GET|HEAD                               | email/resend             | verification.resend      | AwesIO\Auth\Controllers\VerificationController@resend                | web,auth,throttle:6,1                                  |
+|        | GET|HEAD                               | email/resend             | verification.resend      | AwesIO\Auth\Controllers\VerificationController@resend                | web,throttle:1,0.2,auth,throttle:6,1                   |
 |        | POST                                   | email/verify             | verification.code.verify | AwesIO\Auth\Controllers\VerificationController@verifyCode            | web,auth                                               |
 |        | GET|HEAD                               | email/verify             | verification.code        | AwesIO\Auth\Controllers\VerificationController@show                  | web,auth                                               |
 |        | GET|HEAD                               | email/verify/{id}        | verification.verify      | AwesIO\Auth\Controllers\VerificationController@verify                | web,auth,signed,throttle:6,1                           |
@@ -163,17 +157,17 @@ By default package will register several routes:
 +--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
 ```
 
-Besides standard authentication laravel routes, package will add:
+Besides default authentication routes, it will add:
 
 ```php
 # Socialite routes
 'login.social'
 'login/{service}/callback'
 
-# 2FA setup and routes for enabling/disabling it
+# Two factor authentication setup routes
 'twofactor.index', 'twofactor.store', 'twofactor.destroy', 'twofactor.verify'
 
-# 2FA login routes
+# Two factor authentication login routes
 'login.twofactor.index', 'login.twofactor.verify'
 
 # Email verification routes

@@ -3,7 +3,6 @@
 namespace AwesIO\Auth;
 
 use Illuminate\Routing\Router;
-use Illuminate\Database\Eloquent\Model;
 use AwesIO\Auth\Contracts\Auth as AuthContract;
 use AwesIO\Auth\Middlewares\SocialAuthentication;
 
@@ -21,13 +20,15 @@ class Auth implements AuthContract
      *
      * @return void
      */
-    public function routes()
+    public function routes(array $params = [])
     {
         // Authentication Routes...
         $this->loginRoutes();
 
         // Registration Routes...
-        $this->registrationRoutes();
+        if ($params['register'] ?? true) {
+            $this->registrationRoutes();
+        }
 
         // Reset password Routes...
         $this->resetPasswordRoutes();

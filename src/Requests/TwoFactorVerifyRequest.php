@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Requests;
 
-use App\User;
 use AwesIO\Auth\Rules\ValidTwoFactorToken;
 use Illuminate\Foundation\Http\FormRequest;
 use AwesIO\Auth\Services\Contracts\TwoFactor;
@@ -59,7 +58,7 @@ class TwoFactorVerifyRequest extends FormRequest
     protected function userResolver($data)
     {
         return function () use ($data) {
-            return User::find($data->user_id);
+            return getModelForGuard(config('auth.defaults.guard'))::find($data->user_id);
         };
     }
 }
