@@ -19,6 +19,11 @@ before_script:
 # Install all project dependencies
 - php composer.phar install
 
+# Install zip
+- docker-php-ext-configure zip --with-libzip=/usr/include
+- docker-php-ext-install zip
+
+
 # Run our tests
 test:
     only:
