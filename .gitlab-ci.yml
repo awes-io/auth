@@ -17,8 +17,7 @@ before_script:
 - curl -sS https://getcomposer.org/installer | php
 
 # Install zip
-- docker-php-ext-configure zip --with-libzip=/usr/include
-- docker-php-ext-install zip
+- docker-php-ext-configure zip --with-libzip
 
 # Install all project dependencies
 - php composer.phar install
