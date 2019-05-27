@@ -16,12 +16,12 @@ before_script:
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
 
-# Install all project dependencies
-- php composer.phar install
-
 # Install zip
 - docker-php-ext-configure zip --with-libzip=/usr/include
 - docker-php-ext-install zip
+
+# Install all project dependencies
+- php composer.phar install
 
 
 # Run our tests
