@@ -56,6 +56,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerRepositories();
 
         $this->registerServices();
+
+        $this->registerHelpers();
     }
 
     /**
@@ -98,4 +100,15 @@ class AuthServiceProvider extends ServiceProvider
                 => database_path('migrations/'.date('Y_m_d_His', time()).'_create_users_social_table.php'),
         ], 'migrations');
     }
+
+    /**
+     * Register helpers file
+     */
+    public function registerHelpers()
+    {
+        if (file_exists($file = __DIR__ . '/helpers.php')) {
+            require $file;
+        }
+    }
+
 }
