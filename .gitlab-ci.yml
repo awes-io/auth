@@ -1,4 +1,4 @@
-image: php:7.2
+image: php:7.2-fpm-alpine
 
 cache:
   paths:
@@ -15,9 +15,6 @@ before_script:
 
 # Install composer
 - curl -sS https://getcomposer.org/installer | php
-
-# Install zip
-- docker-php-ext-configure zip --with-libzip
 
 # Install all project dependencies
 - php composer.phar install

@@ -192,27 +192,11 @@ composer test
 
 Please see [contributing.md](contributing.md) for details and a todolist.
 
-## Security
-
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
-
 ## Credits
 
-- [:author_name][link-author]
-- [All Contributors][link-contributors]
+- [Galymzhan Begimov](https://github.com/begimov)
+- [All Contributors](contributing.md)
 
 ## License
 
-GNU General Public License v3.0. Please see the [license file](license.md) for more information.
-
-[ico-version]: https://img.shields.io/packagist/v/awes-io/auth.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/awes-io/auth.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/awes-io/auth/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/12345678/shield
-
-[link-packagist]: https://packagist.org/packages/awes-io/auth
-[link-downloads]: https://packagist.org/packages/awes-io/auth
-[link-travis]: https://travis-ci.org/awes-io/auth
-[link-styleci]: https://styleci.io/repos/12345678
-[link-author]: https://github.com/awes-io
-[link-contributors]: ../../contributors]
+[MIT](http://opensource.org/licenses/MIT)
