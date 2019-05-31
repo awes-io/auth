@@ -46,7 +46,7 @@
 
 ##
 <p align="center">
-    <!-- <img src="" alt="Laravel Authentication" title="Awes.io Authentication" /> -->
+    <img src="https://static.awes.io/github/auth-cover.gif" alt="Laravel Authentication" title="Awes.io Authentication" />
 </p>
 
 
