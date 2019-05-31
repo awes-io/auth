@@ -1,12 +1,63 @@
-# Auth
+<p align="center">
+    <a href="https://www.awes.io/?utm_source=github&utm_medium=auth" target="_blank" rel="noopener noreferrer">
+        <img width="100" src="https://static.awes.io/promo/Logo_sign_color.svg" alt="Awes.io logo">
+    </a>
+</p>
 
-[![Coverage report](https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/coverage.svg)](https://www.awes.io/)
-[![Build status](https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/build.svg)](https://www.awes.io/)
-[![Composer Ready](https://www.pkgkit.com/4GBWO/awes-io/auth/status.svg)](https://www.awes.io/)
-[![Downloads](https://www.pkgkit.com/4GBWO/awes-io/auth/downloads.svg)](https://www.awes.io/)
-[![Last version](https://www.pkgkit.com/4GBWO/awes-io/auth/version.svg)](https://www.awes.io/) 
+<h1 align="center">Authentication</h1>
 
-Laravel Auth package with buit-in two-factor (Authy) and social authentication (Socialite).
+<p align="center">Laravel Authentication package with built-in two-factor (Authy) and social authentication (Socialite).</p>
+
+<p align="center">
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/coverage.svg" alt="Coverage report" >
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://www.pkgkit.com/4GBWO/awes-io/auth/version.svg" alt="Last version" >
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://repo.pkgkit.com/4GBWO/awes-io/auth/badges/master/build.svg" alt="Build status" >
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://www.pkgkit.com/4GBWO/awes-io/auth/downloads.svg" alt="Downloads" >
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://img.shields.io/github/license/awes-io/auth.svg" alt="License" />
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://www.pkgkit.com/4GBWO/awes-io/auth/status.svg" alt="CDN Ready" /> 
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields" target="_blank">
+        <img src="https://static.pkgkit.com/badges/laravel.svg" alt="laravel" />
+    </a>
+    <a href="https://www.awes.io/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://img.shields.io/github/last-commit/awes-io/auth.svg" alt="Last commit" />
+    </a>
+    <a href="https://github.com/awes-io/awes-io">
+        <img src="https://ga-beacon.appspot.com/UA-134431636-1/awes-io/auth" alt="Analytics" />
+    </a>
+    <a href="https://www.pkgkit.com/?utm_source=github&amp;utm_medium=shields">
+        <img src="https://www.pkgkit.com/badges/hosted.svg" alt="Hosted by Package Kit" />
+    </a>
+    <a href="https://www.patreon.com/join/awesdotio">
+        <img src="https://static.pkgkit.com/badges/patreon.svg" alt="Patreon" />
+    </a>
+</p>
+
+##
+<p align="center">
+    <!-- <img src="" alt="Laravel Authentication" title="Awes.io Authentication" /> -->
+</p>
+
+
+## Table of Contents
+
+- <a href="#installation">Installation</a>
+- <a href="#configuration">Configuration</a>
+    - <a href="#social-and-two-factor-authentication">Social and two-factor authentication</a>
+    - <a href="#email-verification-resetting-passwords">Email verification & resetting passwords</a>
+- <a href="#usage">Usage</a>
+- <a href="#testing">Testing</a>
 
 ## Installation
 
@@ -163,22 +214,23 @@ Package will register several routes:
 +--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
 ```
 
-Besides default authentication routes, it will add:
-
-```php
-# Socialite routes
-'login.social'
-'login/{service}/callback'
-
-# Two factor authentication setup routes
-'twofactor.index', 'twofactor.store', 'twofactor.destroy', 'twofactor.verify'
-
-# Two factor authentication login routes
-'login.twofactor.index', 'login.twofactor.verify'
-
-# Email verification routes
-'verification.resend', 'verification.code.verify', 'verification.code', 'verification.verify'
-```
+##### Besides default authentication routes, it will add:
+* Socialite routes
+    * `'login.social'`
+    * `'login/{service}/callback'`
+* Two factor authentication setup routes
+    * `'twofactor.index'`
+    * `'twofactor.store'`
+    * `'twofactor.destroy'`
+    * `'twofactor.verify'`
+* Two factor authentication login routes
+    * `'login.twofactor.index'`
+    * `'login.twofactor.verify'`
+* Email verification routes
+    * `'verification.resend'`
+    * `'verification.code.verify'`
+    * `'verification.code'`
+    * `'verification.verify'`
 
 ## Testing
 
