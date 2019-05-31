@@ -1,4 +1,4 @@
-image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
+image: edbizarro/gitlab-ci-pipeline-php:7.2
 
 cache:
   paths:
