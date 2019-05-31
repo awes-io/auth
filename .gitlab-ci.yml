@@ -1,4 +1,4 @@
-image: edbizarro/gitlab-ci-pipeline-php:7.2
+image: binhle410/php7.2-fpm
 
 cache:
   paths:
