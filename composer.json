@@ -1,8 +1,8 @@
 {
     "name": "awes-io/auth",
-    "description": ":description",
+    "description": "Laravel Authentication package with built-in two-factor (Authy) and social authentication (Socialite).",
     "type": "library",
-    "license": "GPL-3.0-only",
+    "license": "MIT",
 	"authors": [
 		{
 			"name": "Awescode GmbH",
@@ -20,7 +20,7 @@
 		"email": "support@awescode.de"
 	},
 	"homepage": "https://github.com/awes-io/auth",
-	"keywords": ["Laravel", "Auth"],
+	"keywords": ["laravel", "auth", "authentication", "authorisation", "authorization", "registration", "two factor authentication", "2fa", "authy", "socialite"],
     "require": {
         "illuminate/support": "~5",
         "laravel/socialite": "^4.0",
