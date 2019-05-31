@@ -1,24 +1,12 @@
-image: binhle410/php7.2-fpm
+image: awescodehub/php7.2-fpm-gitlab
 
 cache:
   paths:
   - vendor/
 
 before_script:
-# Install git, the php image doesn't have installed
-- apt-get update -yqq
-- apt-get install git -yqq
-
-# Install Xdebug
-- pecl install xdebug
-- docker-php-ext-enable xdebug
-
-# Install composer
-- curl -sS https://getcomposer.org/installer | php
-
 # Install all project dependencies
-- php composer.phar install
-
+- composer install
 
 # Run our tests
 test:
