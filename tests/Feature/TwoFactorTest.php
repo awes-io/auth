@@ -7,7 +7,7 @@ use AwesIO\Auth\Tests\Stubs\User;
 
 class TwoFactorTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
