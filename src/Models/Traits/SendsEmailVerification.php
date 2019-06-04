@@ -3,7 +3,6 @@
 namespace AwesIO\Auth\Models\Traits;
 
 use Illuminate\Support\Facades\URL;
-use AwesIO\Mail\Mail\EmailConfirmation;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Notifications\VerifyEmail;
 
@@ -16,26 +15,31 @@ trait SendsEmailVerification
      */
     public function sendEmailVerificationNotification()
     {
-        VerifyEmail::toMailUsing(
-            function ($notifiable) {
+        $code = $this->generateVerificationCode();
 
-                $code = $this->generateVerificationCode();
+        $expire = now()->addMinutes(60);
 
-                $url = URL::temporarySignedRoute(
-                    'verification.verify', 
-                    $expire = now()->addMinutes(60), 
-                    ['id' => $notifiable->getKey()]
-                );
+        if ($mailable = config('awesio-auth.mailables.email_verification')) {
 
-                Session::put(
-                    'email_verification', 
-                    ['code' => $code, 'expire' => $expire]
-                );
-
-                return (new EmailConfirmation($code, $url))
-                    ->to($notifiable->email);
-            }
+            VerifyEmail::toMailUsing(
+                function ($notifiable) use ($mailable, $code, $expire) {
+    
+                    $url = URL::temporarySignedRoute(
+                        'verification.verify', 
+                        $expire, 
+                        ['id' => $notifiable->getKey()]
+                    );
+    
+                    return (new $mailable($code, $url))
+                        ->to($notifiable->email);
+                }
+            );
+        }
+        Session::put(
+            'email_verification', 
+            ['code' => $code, 'expire' => $expire]
         );
+
         $this->notify(new VerifyEmail);
     }
 

@@ -70,4 +70,8 @@ return [
         'twofactor' => '/',
     ],
 
+    'mailables' => [
+        // 'email_verification' => AwesIO\Mail\Mail\EmailConfirmation::class,
+        // 'reset_password' => AwesIO\Mail\Mail\ResetPassword::class,
+    ]
 ];

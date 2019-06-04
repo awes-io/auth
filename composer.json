@@ -24,8 +24,7 @@
     "require": {
         "illuminate/support": "~5",
         "laravel/socialite": "^4.0",
-        "guzzlehttp/guzzle": "^6.3",
-        "awes-io/mail": "^0.2"
+        "guzzlehttp/guzzle": "^6.3"
 
     },
     "require-dev": {
@@ -56,20 +55,5 @@
                 "AwesAuth": "AwesIO\\Auth\\Facades\\Auth"
             }
         }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo.pkgkit.com",
-            "options":  {
-                "http": {
-                    "header": [
-                        "API-TOKEN: 43e31d6e2d0223970c0cc9f1064f767fc65da1b1c9cd608813c897836e7b8312",
-                        "THIS IS DEMO KEY, for personal use only, it will become INVALID after short period of time",
-                        "If you need FREE production key, please visit https://www.pkgkit.com/awes-io/create"
-                    ]
-                }
-            }
-        }
-    ]
+    }
 }

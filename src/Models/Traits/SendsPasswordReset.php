@@ -2,7 +2,6 @@
 
 namespace AwesIO\Auth\Models\Traits;
 
-use AwesIO\Mail\Mail\ResetPassword;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 
 trait SendsPasswordReset
@@ -15,16 +14,19 @@ trait SendsPasswordReset
      */
     public function sendPasswordResetNotification($token)
     {
-        ResetPasswordNotification::toMailUsing(
-            
-            function ($notifiable, $token) {
+        if ($mailable = config('awesio-auth.mailables.reset_password')) {
 
-                $url = url(route('password.reset', $token));
+            ResetPasswordNotification::toMailUsing(
+                
+                function ($notifiable, $token) use ($mailable) {
 
-                return (new ResetPassword($url))
-                    ->to($notifiable->email);
-            }
-        );
+                    $url = url(route('password.reset', $token));
+
+                    return (new $mailable($url))
+                        ->to($notifiable->email);
+                }
+            );
+        }
         $this->notify(new ResetPasswordNotification($token));
     }
 }
