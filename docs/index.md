@@ -1,6 +1,15 @@
-# Auth
+<h1 align="center">Authentication</h1>
 
-Laravel Auth package with buit-in two-factor (Authy) and social authentication (Socialite).
+<p align="center">Laravel Authentication package with built-in two-factor (Authy) and social authentication (Socialite).</p>
+
+## Table of Contents
+
+- <a href="#installation">Installation</a>
+- <a href="#configuration">Configuration</a>
+    - <a href="#social-and-two-factor-authentication">Social and two-factor authentication</a>
+    - <a href="#email-verification-resetting-passwords">Email verification & resetting passwords</a>
+- <a href="#usage">Usage</a>
+- <a href="#testing">Testing</a>
 
 ## Installation
 
@@ -127,52 +136,25 @@ You can disable registration:
 AwesAuth::routes(['register' => false]);
 ```
 
-Package will register several routes:
+Package will register several routes.
 
-```
-+--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
-| Domain | Method                                 | URI                      | Name                     | Action                                                               | Middleware                                             |
-+--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
-|        | GET|HEAD                               | email/resend             | verification.resend      | AwesIO\Auth\Controllers\VerificationController@resend                | web,throttle:1,0.2,auth,throttle:6,1                   |
-|        | POST                                   | email/verify             | verification.code.verify | AwesIO\Auth\Controllers\VerificationController@verifyCode            | web,auth                                               |
-|        | GET|HEAD                               | email/verify             | verification.code        | AwesIO\Auth\Controllers\VerificationController@show                  | web,auth                                               |
-|        | GET|HEAD                               | email/verify/{id}        | verification.verify      | AwesIO\Auth\Controllers\VerificationController@verify                | web,auth,signed,throttle:6,1                           |
-|        | POST                                   | login                    |                          | AwesIO\Auth\Controllers\LoginController@login                        | web,guest                                              |
-|        | GET|HEAD                               | login                    | login                    | AwesIO\Auth\Controllers\LoginController@showLoginForm                | web,guest                                              |
-|        | POST                                   | login/twofactor/verify   | login.twofactor.verify   | AwesIO\Auth\Controllers\TwoFactorLoginController@verify              | web,guest                                              |
-|        | GET|HEAD                               | login/twofactor/verify   | login.twofactor.index    | AwesIO\Auth\Controllers\TwoFactorLoginController@index               | web,guest                                              |
-|        | GET|HEAD                               | login/{service}          | login.social             | AwesIO\Auth\Controllers\SocialLoginController@redirect               | web,guest,AwesIO\Auth\Middlewares\SocialAuthentication |
-|        | GET|HEAD                               | login/{service}/callback |                          | AwesIO\Auth\Controllers\SocialLoginController@callback               | web,guest,AwesIO\Auth\Middlewares\SocialAuthentication |
-|        | GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS | logout                   | logout                   | AwesIO\Auth\Controllers\LoginController@logout                       | web                                                    |
-|        | POST                                   | password/email           | password.email           | AwesIO\Auth\Controllers\ForgotPasswordController@sendResetLinkEmail  | web,guest                                              |
-|        | POST                                   | password/reset           | password.update          | AwesIO\Auth\Controllers\ResetPasswordController@reset                | web,guest                                              |
-|        | GET|HEAD                               | password/reset           | password.request         | AwesIO\Auth\Controllers\ForgotPasswordController@showLinkRequestForm | web,guest                                              |
-|        | GET|HEAD                               | password/reset/{token}   | password.reset           | AwesIO\Auth\Controllers\ResetPasswordController@showResetForm        | web,guest                                              |
-|        | POST                                   | register                 |                          | AwesIO\Auth\Controllers\RegisterController@register                  | web,guest                                              |
-|        | GET|HEAD                               | register                 | register                 | AwesIO\Auth\Controllers\RegisterController@showRegistrationForm      | web,guest                                              |
-|        | GET|HEAD                               | twofactor                | twofactor.index          | AwesIO\Auth\Controllers\TwoFactorController@index                    | web,auth                                               |
-|        | POST                                   | twofactor                | twofactor.store          | AwesIO\Auth\Controllers\TwoFactorController@store                    | web,auth                                               |
-|        | DELETE                                 | twofactor                | twofactor.destroy        | AwesIO\Auth\Controllers\TwoFactorController@destroy                  | web,auth                                               |
-|        | POST                                   | twofactor/verify         | twofactor.verify         | AwesIO\Auth\Controllers\TwoFactorController@verify                   | web,auth                                               |
-+--------+----------------------------------------+--------------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------------+
-```
-
-Besides default authentication routes, it will add:
-
-```php
-# Socialite routes
-'login.social'
-'login/{service}/callback'
-
-# Two factor authentication setup routes
-'twofactor.index', 'twofactor.store', 'twofactor.destroy', 'twofactor.verify'
-
-# Two factor authentication login routes
-'login.twofactor.index', 'login.twofactor.verify'
-
-# Email verification routes
-'verification.resend', 'verification.code.verify', 'verification.code', 'verification.verify'
-```
+##### Besides default authentication routes, it will add:
+* Socialite routes
+    * `'login.social'`
+    * `'login/{service}/callback'`
+* Two factor authentication setup routes
+    * `'twofactor.index'`
+    * `'twofactor.store'`
+    * `'twofactor.destroy'`
+    * `'twofactor.verify'`
+* Two factor authentication login routes
+    * `'login.twofactor.index'`
+    * `'login.twofactor.verify'`
+* Email verification routes
+    * `'verification.resend'`
+    * `'verification.code.verify'`
+    * `'verification.code'`
+    * `'verification.verify'`
 
 ## Testing
 
@@ -181,3 +163,16 @@ You can run the tests with:
 ```bash
 composer test
 ```
+
+## Contributing
+
+Please see [contributing.md](contributing.md) for details and a todolist.
+
+## Credits
+
+- [Galymzhan Begimov](https://github.com/begimov)
+- [All Contributors](contributing.md)
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
