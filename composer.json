@@ -22,7 +22,7 @@
 	"homepage": "https://github.com/awes-io/auth",
 	"keywords": ["laravel", "auth", "authentication", "authorisation", "authorization", "registration", "two factor authentication", "2fa", "authy", "socialite"],
     "require": {
-        "illuminate/support": "~5",
+        "illuminate/support": "~5|~6",
         "laravel/socialite": "^4.0",
         "guzzlehttp/guzzle": "^6.3"
 
